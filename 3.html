@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Quick Access Dashboard</title>
+    <style>
+        /* --- 基本页面样式 --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* --- 主容器样式 --- */
+        .dashboard-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* --- 头部样式 --- */
+        .header {
+            background-color: #232f3e;
+            color: white;
+            padding: 20px 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        /* --- 链接列表容器 --- */
+        .links-container {
+            padding: 20px;
+        }
+
+        /* --- 单个链接项样式 --- */
+        .link-item {
+            display: flex;
+            align-items: center;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .link-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: #007bff;
+        }
+        
+        .link-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .link-item a {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            text-decoration: none;
+            color: #212529;
+            font-size: 16px;
+            font-weight: 500;
+            width: 100%;
+        }
+
+        .link-item .icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 16px;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <div class="header">
+            <h1>AWS Quick Access Dashboard</h1>
+        </div>
+
+        <div class="links-container">
+            <!-- 链接列表已更新为 Google 重定向链接 -->
+            <div class="link-item">
+                <a href="https://www.google.com/url?q=https%3A%2F%2Fus-east-1.console.aws.amazon.com%2Fbilling%2Fhome%23%2Fpaymentsoverview" target="_blank" rel="noopener noreferrer">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.5 0l-1.49-1.49m1.49 1.49l-1.49-1.49m5-5.25H21a2.25 2.25 0 00-2.25-2.25H7.5A2.25 2.25 0 005.25 7.5v9a2.25 2.25 0 002.25 2.25h9.75a2.25 2.25 0 002.25-2.25v-4.5m-4.5-4.5V4.5m0 3.75l-1.5-1.5m1.5 1.5l1.5-1.5" />
+                    </svg>
+                    Payments Overview
+                </a>
+            </div>
+
+            <div class="link-item">
+                <a href="https://www.google.com/url?q=https%3A%2F%2Fus-east-1.console.aws.amazon.com%2Fbilling%2Fhome%23%2Fpaymentpreferences" target="_blank" rel="noopener noreferrer">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+                    </svg>
+                    Payment Preferences
+                </a>
+            </div>
+
+            <div class="link-item">
+                <a href="https://www.google.com/url?q=https%3A%2F%2Fus-east-1.console.aws.amazon.com%2Fcloudshell%2Fhome%3Fregion%3Dus-east-1" target="_blank" rel="noopener noreferrer">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
+                    </svg>
+                    CloudShell
+                </a>
+            </div>
+
+            <div class="link-item">
+                <a href="https://www.google.com/url?q=https%3A%2F%2Fus-east-1.console.aws.amazon.com%2Forganizations%2Fv2%2Fhome" target="_blank" rel="noopener noreferrer">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21v-4.5m0 4.5h4.5m-4.5 0L9 15M3.75 3v4.5m0-4.5h4.5m-4.5 0L9 9M15 3h4.5m-4.5 0v4.5m0-4.5L15 9m3.75 12h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                    </svg>
+                    Organizations
+                </a>
+            </div>
+
+            <div class="link-item">
+                <a href="https://www.google.com/url?q=https%3A%2F%2Fus-east-1.console.aws.amazon.com%2Fec2%2Fhome%3Fregion%3Dus-east-1%23ReservedInstances" target="_blank" rel="noopener noreferrer">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.05a2.25 2.25 0 01-2.25 2.25h-11.25a2.25 2.25 0 01-2.25-2.25v-4.05M16.5 3.75a5.25 5.25 0 00-10.5 0h10.5zM5.25 9.75h13.5" />
+                    </svg>
+                    EC2 Reserved Instances
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

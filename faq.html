@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7QMJ1LB7ZQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7QMJ1LB7ZQ');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - ResellAWS.com</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.svg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .faq-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .answers-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .answer-item {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            background: #fafafa;
+            scroll-margin-top: 120px;
+        }
+        
+        .answer-item h3 {
+            color: #667eea;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .answer-content {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            color: #856404;
+        }
+
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            color: #0c5460;
+        }
+
+        .back-to-top {
+            position: fixed;
+            right: 30px;
+            bottom: 16.67vh;
+            width: 50px;
+            height: 50px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .back-to-top:hover {
+            background: #4c63d2;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .questions-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .question-category {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .question-category h3 {
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .question-category ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .question-category li {
+            margin-bottom: 8px;
+        }
+        
+        .question-category a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+        
+        .question-category a:hover {
+            color: #4c63d2;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .faq-section {
+                padding: 20px;
+            }
+            
+            .back-to-top {
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html"><img src="images/logo.svg" alt="ResellAWS.com">
+                    <span>ResellAWS.com</span></a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="features.html">Services</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="shop/">Shop</a></li>
+                    <li><a href="faq.html" class="active">FAQ</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Frequently Asked Questions</h1>
+                <p>Everything you need to know about our AWS services</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- Questions List Section -->
+            <div class="questions-section">
+                <h2 style="color: #667eea; font-size: 1.8rem; margin-bottom: 20px; text-align: center;">📋 Questions List</h2>
+                
+                <div class="questions-grid">
+                    <div class="question-category">
+                        <h3>🏢 Accounts & Services</h3>
+                        <ul>
+                            <li><a href="#q1">Q1: Are you selling AWS credits?</a></li>
+                            <li><a href="#q2">Q2: What type of AWS accounts do you offer?</a></li>
+                            <li><a href="#q3">Q3: Do the provided AWS accounts have Root access?</a></li>
+                            <li><a href="#q4">Q4: Can your accounts be used across multiple regions?</a></li>
+                            <li><a href="#q5">Q5: Which types of EC2 instances can be used?</a></li>
+                            <li><a href="#q6">Q6: What are the typical AWS service quotas?</a></li>
+                            <li><a href="#q7">Q7: Do you provide support for AWS AI services like Claude or Bedrock?</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question-category">
+                        <h3>💰 Pricing & Payment</h3>
+                        <ul>
+                            <li><a href="#q8">Q8: Do all AWS products and services receive tiered discounts?</a></li>
+                            <li><a href="#q9">Q9: How do I calculate the amount I need to pay?</a></li>
+                            <li><a href="#q10">Q10: What payment methods do you accept?</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question-category">
+                        <h3>🛠️ Technical Support</h3>
+                        <ul>
+                            <li><a href="#q11">Q11: Do you offer technical support, such as machine migration or deployment?</a></li>
+                            <li><a href="#q12">Q12: Can you help me migrate machines from Google Cloud to AWS?</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question-category">
+                        <h3>🚀 Account Activation</h3>
+                        <ul>
+                            <li><a href="#q13">Q13: How do I activate an AWS account? What information do I need to provide?</a></li>
+                            <li><a href="#q14">Q14: How do I start using the account after receiving the information?</a></li>
+                            <li><a href="#q15">Q15: Can you explain how you handle my monthly and outstanding bills?</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question-category">
+                        <h3>🎁 Post-Purchase Benefits</h3>
+                        <ul>
+                            <li><a href="#q16">Q16: What do I get after making a purchase?</a></li>
+                            <li><a href="#q17">Q17: Which service charges can your service cover?</a></li>
+                            <li><a href="#q18">Q18: Why might someone need AWS credits?</a></li>
+                            <li><a href="#q19">Q19: How can $1000 in AWS credits help reduce costs?</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Answers Section -->
+            <div class="answers-section">
+                <h2 style="color: #667eea; font-size: 1.8rem; margin-bottom: 20px; text-align: center;">💬 Questions & Answers</h2>
+
+                <div id="q1" class="answer-item">
+                    <h3>Q1: Are you selling AWS credits?</h3>
+                    <div class="answer-content">
+                        <strong>A1:</strong> Yes, we provide services that can be used to offset AWS costs. If your AWS account has outstanding invoices, <span class="highlight">we can pay them</span>. If you don't have an AWS account, we can offer a new AWS account to you.
+                    </div>
+                </div>
+
+                <div id="q2" class="answer-item">
+                    <h3>Q2: What type of AWS accounts do you offer?</h3>
+                    <div class="answer-content">
+                        <strong>A2:</strong> We offer <span class="highlight">normal, stable, and long-term usable AWS accounts</span> from a US-based reseller. These are not startup accounts, sponsored accounts, or promotional credit accounts. Our accounts, organization, payment methods, and contact information are all based in the US.
+                    </div>
+                </div>
+
+                <div id="q3" class="answer-item">
+                    <h3>Q3: Do the provided AWS accounts have Root access?</h3>
+                    <div class="answer-content">
+                        <strong>A3:</strong> We cannot provide Root access. You will receive an <span class="highlight">IAM User account with pre-assigned necessary permissions</span>. If you need additional permissions, we can help add them.
+                    </div>
+                </div>
+
+                <div id="q4" class="answer-item">
+                    <h3>Q4: Can your accounts be used across multiple regions?</h3>
+                    <div class="answer-content">
+                        <strong>A4:</strong> No. The accounts we provide are typically <span class="highlight">fixed to a single AWS region</span> (one account per region). If you need to deploy resources in multiple regions, we will provide you with a corresponding number of separate accounts.
+                        <div class="warning">
+                            ⚠️ <strong>Warning:</strong> Attempting to launch resources across multiple regions within a single, fixed-region account carries a high risk of account suspension.
+                        </div>
+                    </div>
+                </div>
+
+                <div id="q5" class="answer-item">
+                    <h3>Q5: Which types of EC2 instances can be used?</h3>
+                    <div class="answer-content">
+                        <strong>A5:</strong> The AWS accounts provided through our system typically have some usage limitations. We support common instance types ranging from <span class="highlight">T2.micro up to C5n or M5zn</span>, but we do not currently support GPU EC2 instances.
+                    </div>
+                </div>
+
+                <div id="q6" class="answer-item">
+                    <h3>Q6: What are the typical AWS service quotas?</h3>
+                    <div class="answer-content">
+                        <strong>A6:</strong> Quotas can be adjusted based on your specific needs. We typically start with <span class="highlight">tens of vCPUs</span>, and these can be increased incrementally as your actual scaling requirements grow.
+                    </div>
+                </div>
+
+                <div id="q7" class="answer-item">
+                    <h3>Q7: Do you provide support for AWS AI services like Claude or Bedrock?</h3>
+                    <div class="answer-content">
+                        <strong>A7:</strong> Currently, the AWS accounts in our managed area do not provide or support AWS AI services like Claude or Bedrock. Our primary customer demand is focused on foundational compute resources like EC2 instances. However, <span class="highlight">if your AWS accounts use any services like Claude and incur costs, we can pay those bills</span>.
+                    </div>
+                </div>
+
+                <div id="q8" class="answer-item">
+                    <h3>Q8: Do all AWS products and services receive tiered discounts?</h3>
+                    <div class="answer-content">
+                        <strong>A8:</strong> Yes, <span class="highlight">all AWS products and services receive tiered discounts from 10-40%</span> based on your monthly usage. This includes domain registration, AWS Support plans like Business/Enterprise, and contact center services like Amazon Connect.
+                    </div>
+                </div>
+
+                <div id="q9" class="answer-item">
+                    <h3>Q9: How do I calculate the amount I need to pay?</h3>
+                    <div class="answer-content">
+                        <strong>A9:</strong> The payment is calculated based on your monthly AWS usage tier: <span class="highlight">$0-500 (10% off), $500-2000 (20% off), $2000-5000 (30% off), $5000+ (40% off)</span>.
+                        <div class="info">
+                            📊 <strong>Examples:</strong><br>
+                            • $300 bill → Pay $270 (10% off)<br>
+                            • $1000 bill → Pay $800 (20% off)<br>
+                            • $3000 bill → Pay $2100 (30% off)<br>
+                            • $8000 bill → Pay $4800 (40% off)
+                        </div>
+                    </div>
+                </div>
+
+                <div id="q10" class="answer-item">
+                    <h3>Q10: What payment methods do you accept?</h3>
+                    <div class="answer-content">
+                        <strong>A10:</strong> Once we've finalized our agreement, we'll send you a <span class="highlight">payment request link powered by Payoneer</span>. This allows you to conveniently pay using common methods like your credit card or bank account. Additionally, if you prefer to use cryptocurrency, you can easily convert it through an open market exchange and then transfer the funds via Payoneer.
+                    </div>
+                </div>
+
+                <div id="q11" class="answer-item">
+                    <h3>Q11: Do you offer technical support, such as machine migration or deployment?</h3>
+                    <div class="answer-content">
+                        <strong>A11:</strong> Yes, we offer technical support. For machine migration within AWS (e.g., transferring EC2 instances from other AWS accounts), we can assist using <span class="highlight">Amazon Machine Images (AMIs)</span>. We can also provide assistance via remote desktop tools like AnyDesk.
+                    </div>
+                </div>
+
+                <div id="q12" class="answer-item">
+                    <h3>Q12: Can you help me migrate machines from Google Cloud to AWS?</h3>
+                    <div class="answer-content">
+                        <strong>A12:</strong> Cross-cloud platform migration (e.g., from Google Cloud to AWS) typically requires redeployment and cannot be directly "pulled over." We have limited experience with this type of cross-platform migration.
+                    </div>
+                </div>
+
+                <div id="q13" class="answer-item">
+                    <h3>Q13: How do I activate an AWS account? What information do I need to provide?</h3>
+                    <div class="answer-content">
+                        <strong>A13:</strong> We will give you an AWS account to use. To activate a US AWS account, you will need to provide the following information to us:
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li>The region where you plan to launch machines (e.g., US East (Ohio), US West (Oregon), or Asia Pacific (Jakarta))</li>
+                            <li>The type of machines you plan to launch (e.g., T3.Medium or instances with 4 cores and 8GB RAM)</li>
+                            <li>Your estimated monthly consumption amount</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="q14" class="answer-item">
+                    <h3>Q14: How do I start using the account after receiving the information?</h3>
+                    <div class="answer-content">
+                        <strong>A14:</strong> We will send the <span class="highlight">IAM User login credentials to your email</span>. Once you receive the information, you can log in and begin launching instances.
+                    </div>
+                </div>
+
+                <div id="q15" class="answer-item">
+                    <h3>Q15: Can you explain how you handle my monthly and outstanding bills?</h3>
+                    <div class="answer-content">
+                        <strong>A15:</strong> Upon your purchase, we'll use our high-level billing management account to cover your account's current monthly bill. This means any usage charges incurred this month, which would typically be invoiced and collected at the beginning of next month, will be handled by us.
+                        <div class="info">
+                            💡 <strong>Process:</strong> Additionally, if you have any outstanding bills from a previous billing period, we can process those for you as well. To facilitate this, we'll need to link your account to our payment system. This process requires a brief remote session using either AnyDesk or TeamViewer.
+                        </div>
+                    </div>
+                </div>
+
+                <div id="q16" class="answer-item">
+                    <h3>Q16: What do I get after making a purchase?</h3>
+                    <div class="answer-content">
+                        <strong>A16:</strong> Upon your purchase, we'll use our <span class="highlight">high-level billing management account to cover your account's current monthly bill</span>. This means any usage charges incurred this month, which would typically be invoiced and collected at the beginning of next month, will be handled by us. Additionally, if you have any outstanding bills from a previous billing period, we can process those for you as well.
+                        <div class="info">
+                            💡 <strong>Setup Process:</strong> To facilitate this, we'll need to link your account to our payment system. This process requires a brief remote session using either AnyDesk or TeamViewer.
+                        </div>
+                    </div>
+                </div>
+
+                <div id="q17" class="answer-item">
+                    <h3>Q17: Which service charges can your service cover?</h3>
+                    <div class="answer-content">
+                        <strong>A17:</strong> Our service covers <span class="highlight">all types of charges generated within your AWS account</span>. This includes common expenses like EC2 instance running costs, data transfer fees, and even Marketplace subscription fees, among others. Essentially, if it's a charge on your AWS bill, we can handle it.
+                    </div>
+                </div>
+
+                <div id="q18" class="answer-item">
+                    <h3>Q18: Why might someone need AWS credits?</h3>
+                    <div class="answer-content">
+                        <strong>A18:</strong> There are many scenarios where AWS credits are valuable:
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li><strong>Trying Out AWS Services:</strong> New users can explore different AWS services without significant upfront financial risk</li>
+                            <li><strong>Development and Testing:</strong> Developers can spin up development environments and iterate on projects</li>
+                            <li><strong>Proof of Concept (POC):</strong> Startups can build and launch initial products or demonstrate ideas to investors</li>
+                            <li><strong>Learning and Education:</strong> Students gain hands-on experience with AWS services</li>
+                            <li><strong>Cloud Migration:</strong> Organizations can offset initial costs of setting up and transferring data</li>
+                            <li><strong>Scaling Applications:</strong> Businesses can manage increased costs during expansion phases</li>
+                            <li><strong>Disaster Recovery:</strong> Setting up robust backup solutions with cost assistance</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="q19" class="answer-item">
+                    <h3>Q19: How can $1000 in AWS credits help reduce costs?</h3>
+                    <div class="answer-content">
+                        <strong>A19:</strong> $1000 in AWS credits provides significant cost benefits:
+                        <div class="info">
+                            💰 <strong>Direct Cost Reduction:</strong> Every dollar of eligible service usage applies a dollar of credit, reducing your out-of-pocket expenses.
+                        </div>
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li><strong>Extended Free Tier:</strong> Effectively extends usage beyond standard 12-month Free Tier limits</li>
+                            <li><strong>Lower Barrier to Entry:</strong> Makes AWS accessible for individuals and startups with limited budgets</li>
+                            <li><strong>Experimentation Freedom:</strong> Encourages exploring more AWS services without cost concerns</li>
+                            <li><strong>Budget Predictability:</strong> Provides a period of predictable lower costs for better planning</li>
+                            <li><strong>Focus on Building:</strong> Reduces cost pressures, allowing focus on development rather than billing</li>
+                            <li><strong>Startup Advantage:</strong> Critical savings in early stages when every dollar counts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top">
+        ↑
+    </button>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ResellAWS.com</h4>
+                    <p>Advanced-tier AWS Partner helping startups optimize cloud costs</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="features.html">AWS Account Services</a></li>
+                        <li><a href="pricing.html">Tiered Discount Pricing</a></li>
+                        <li><a href="shop/">Shop AWS Credits</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="contact.html">Get AWS Account</a></li>
+                        <li><a href="faq.html">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ResellAWS.com. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Back to top button
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+    <script>
+      (function(d,t) {
+        var BASE_URL="https://app.chatwoot.com";
+        var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=BASE_URL+"/packs/js/sdk.js";
+        g.defer=true;
+        g.async=true;
+        s.parentNode.insertBefore(g,s);
+        g.onload=function(){
+          window.chatwootSDK.run({
+            websiteToken: '26KZM3FSZgqMKsxKvei1N8ge',
+            baseUrl: BASE_URL,
+            locale: 'en'
+          })
+        }
+      })(document,"script");
+    </script>
+</body>
+</html>

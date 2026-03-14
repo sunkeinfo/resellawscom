@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7QMJ1LB7ZQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7QMJ1LB7ZQ');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get in Touch - ResellAWS.com</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.svg">
+    <style>
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <img src="images/logo.svg" alt="RESELLAWS">
+                    <a href="index.html"><span>ResellAWS.com</span></a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="features.html">Services</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="shop/">Shop</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Get AWS Bill Payment Service</h1>
+                <p>Ready to save 10-40% on AWS? Let us pay your AWS bills with tiered discounts</p>
+            </div>
+        </section>
+
+        <section class="contact-content">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h2>Contact Information</h2>
+                        <div class="contact-item">
+                            <img src="images/email-icon.svg" alt="Email">
+                            <div>
+                                <h4>Email</h4>
+                                <p>contact@resellaws.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <img src="images/time-icon.svg" alt="Response Time">
+                            <div>
+                                <h4>Response Time</h4>
+                                <p>Within 24 hours</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <img src="images/monitoring-icon.svg" alt="Support">
+                            <div>
+                                <h4>Expert Support</h4>
+                                <p>AWS certified professionals</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <img src="images/cost-icon.svg" alt="60% Discount">
+                            <div>
+                                <h4>10-40% Tiered Discounts</h4>
+                                <p>On all AWS services</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-form">
+                        <h2>AWS Bill Payment Service Request</h2>
+                        <form id="contactForm" method="POST">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">Full Name</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="monthly-consumption">Estimated Monthly Consumption</label>
+                                <select id="monthly-consumption" name="monthly-consumption" required>
+                                    <option value="">Select your range</option>
+                                    <option value="100-500">$100 - $500</option>
+                                    <option value="500-1000">$500 - $1,000</option>
+                                    <option value="1000-3000">$1,000 - $3,000</option>
+                                    <option value="3000-5000">$3,000 - $5,000</option>
+                                    <option value="5000+">$5,000+</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Additional Information</label>
+                                <textarea id="message" name="message" rows="4" placeholder="Do you have existing AWS accounts with outstanding bills? Current monthly AWS spending? Any specific requirements?"></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary">Request Bill Payment Service</button>
+                            <div id="formMessage" style="margin-top: 15px; padding: 10px; border-radius: 5px; display: none;"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="support-options">
+            <div class="container">
+                <h2>What Happens Next?</h2>
+                <div class="support-grid">
+                    <div class="support-card">
+                        <img src="images/cost-icon.svg" alt="Bill Assessment">
+                        <h3>1. Bill Assessment</h3>
+                        <p>We'll review your current AWS usage and outstanding bills to determine your discount tier</p>
+                    </div>
+                    <div class="support-card">
+                        <img src="images/monitoring-icon.svg" alt="Account Linking">
+                        <h3>2. Account Linking</h3>
+                        <p>Link your AWS account to our billing system via secure remote session</p>
+                    </div>
+                    <div class="support-card">
+                        <img src="images/report-icon.svg" alt="Start Saving">
+                        <h3>3. Start Saving</h3>
+                        <p>We pay your AWS bills with tiered discounts - you pay us the discounted amount</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ResellAWS.com</h4>
+                    <p>Advanced-tier AWS Partner helping startups optimize cloud costs</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="features.html">AWS Account Services</a></li>
+                        <li><a href="pricing.html">Tiered Discount Pricing</a></li>
+                        <li><a href="shop/">Shop AWS Credits</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="contact.html">Get AWS Account</a></li>
+                        <li><a href="faq.html">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ResellAWS.com. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Obfuscated form endpoint
+        const formEndpoint = atob('aHR0cHM6Ly9mb3Jtc3ByZWUuaW8vZi9tbGR3cGJkcQ==');
+        
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const messageDiv = document.getElementById('formMessage');
+            const submitBtn = this.querySelector('button[type="submit"]');
+            
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch(formEndpoint, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.backgroundColor = '#d4edda';
+                    messageDiv.style.color = '#155724';
+                    messageDiv.style.border = '1px solid #c3e6cb';
+                    messageDiv.textContent = 'Thank you! Your request has been submitted successfully. We will contact you within 24 hours.';
+                    this.reset();
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                messageDiv.style.display = 'block';
+                messageDiv.style.backgroundColor = '#f8d7da';
+                messageDiv.style.color = '#721c24';
+                messageDiv.style.border = '1px solid #f5c6cb';
+                messageDiv.textContent = 'Sorry, there was an error submitting your request. Please try again.';
+            }
+            
+            submitBtn.textContent = 'Request Bill Payment Service';
+            submitBtn.disabled = false;
+        });
+    </script>
+    <script src="script.js"></script>
+    <script>
+      (function(d,t) {
+        var BASE_URL="https://app.chatwoot.com";
+        var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=BASE_URL+"/packs/js/sdk.js";
+        g.defer=true;
+        g.async=true;
+        s.parentNode.insertBefore(g,s);
+        g.onload=function(){
+          window.chatwootSDK.run({
+            websiteToken: '26KZM3FSZgqMKsxKvei1N8ge',
+            baseUrl: BASE_URL,
+            locale: 'en'
+          })
+        }
+      })(document,"script");
+    </script>
+</body>
+</html>

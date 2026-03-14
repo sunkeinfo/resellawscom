@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>付款指引 | Payment Instructions</title>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --fps-orange: #ff6600;
+            --bg-color: #f4f7f9;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 500px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h2 { margin: 0; color: var(--primary-color); }
+
+        /* 付款资料卡片 */
+        .method-card {
+            border: 2px solid var(--fps-orange);
+            border-radius: 10px;
+            padding: 15px;
+            position: relative;
+            background-color: #fff9f5;
+        }
+
+        .method-badge {
+            background: var(--fps-orange);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            position: absolute;
+            top: -12px;
+            left: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #ffd8bf;
+            padding-bottom: 5px;
+        }
+
+        .label { font-weight: 600; color: #666; font-size: 0.9rem; }
+        .value { font-family: 'Courier New', monospace; font-weight: bold; font-size: 1.2rem; color: #000; }
+        .name-highlight { color: #d9534f; }
+
+        /* 图片展示区域 */
+        .screenshot-area {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .screenshot-area p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .payment-img {
+            width: 100%;
+            max-width: 300px; /* 限制图片宽度，避免手机端过大 */
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .step-box {
+            margin-top: 20px;
+            background: #fffbe6;
+            padding: 15px;
+            border-left: 4px solid #ffe58f;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .red-text { color: #e74c3c; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>转数快付款指引</h2>
+        <p>FPS Payment Guide</p>
+    </div>
+
+    <div class="method-card">
+        <span class="method-badge">收款资料</span>
+        <div class="info-row">
+            <span class="label">转账货币</span>
+            <span class="value">HKD (港币)</span>
+        </div>
+        <div class="info-row">
+            <span class="label">FPS ID</span>
+            <span class="value">123040131</span>
+        </div>
+        <div class="info-row" style="border-bottom: none;">
+            <span class="label">核对姓名</span>
+            <span class="value name-highlight">SUN K*</span>
+        </div>
+    </div>
+
+    <div class="screenshot-area">
+        <p>👇 操作参考图示 (Screenshot Guide)</p>
+        <img src="IMG_0134.png" alt="FPS转账示例图" class="payment-img">
+    </div>
+
+    <div class="step-box">
+        <strong>⚠️ 请按以下步骤操作：</strong>
+        <ol>
+            <li>打开银行App，选择 <strong>FPS / 转数快</strong>。</li>
+            <li>输入识别码：<strong class="red-text">123040131</strong>。</li>
+            <li><strong>最关键：</strong> 确认收款人显示为 <strong class="red-text">SUN K*</strong>。</li>
+            <li>确认无误后，输入金额并提交。</li>
+        </ol>
+    </div>
+
+    <div class="footer">
+        完成转账后请保存截图，谢谢！<br>
+        Please save the receipt after transfer.
+    </div>
+</div>
+
+</body>
+</html>

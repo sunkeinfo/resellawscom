@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>服务器工具与脚本部署指南</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 960px; /* 增加了最大宽度 */
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #1a2a45;
+            border-bottom: 2px solid #eef2f5;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        p {
+            color: #555;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #eef2f5;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.95em;
+            color: #3d3d3d;
+        }
+        pre {
+            background-color: #2c3e50; /* 恢复代码块背景色 */
+            color: #ecf0f1;
+            padding: 15px;
+            padding-top: 45px; /* 为按钮留出空间 */
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+            font-size: 1em;
+        }
+        .code-block-wrapper {
+            position: relative;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s, background-color 0.3s;
+            font-size: 14px;
+        }
+        .code-block-wrapper:hover .copy-btn {
+            opacity: 1;
+        }
+        .copy-btn:hover {
+            background-color: #2980b9;
+        }
+        .copy-btn:active {
+            background-color: #2c3e50;
+        }
+        /* 为特定按钮添加的明黄色样式 */
+        .copy-btn-highlight {
+            background-color: #FFEB3B; /* 明黄色 */
+            color: #333; /* 深色文字以保证可读性 */
+        }
+        .copy-btn-highlight:hover {
+            background-color: #FBC02D; /* 鼠标悬停时颜色加深 */
+        }
+        /* ===== 新增的绿色按钮样式 ===== */
+        .copy-btn-green {
+            background-color: #2ecc71; /* 绿色 */
+            color: white;
+        }
+        .copy-btn-green:hover {
+            background-color: #27ae60; /* 鼠标悬停时颜色加深 */
+        }
+        /* ===== 新增的红色按钮样式 ===== */
+        .copy-btn-red {
+            background-color: #e74c3c; /* 鲜红色 */
+            color: white;
+        }
+        .copy-btn-red:hover {
+            background-color: #c0392b; /* 鼠标悬停时颜色加深 */
+        }
+        /* ============================ */
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        /* ===== 紫色文本样式 ===== */
+        .purple-text-code {
+            color: #8e44ad; /* 紫色 */
+            background-color: #f9f6ff; /* 淡紫色背景 */
+            padding: 15px;
+            border-left: 4px solid #8e44ad;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.85em;
+            line-height: 1.5;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+        /* ============================ */
+
+        /* ===== 导航栏样式 ===== */
+        .navbar {
+            padding: 0;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .navbar h2 {
+            display: none; /* 隐藏“目录”标题 */
+        }
+        .nav-links {
+            margin-top: 0;
+        }
+        .nav-links a {
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+            cursor: pointer;
+            display: inline-block;
+            color: #3498db;
+        }
+        .nav-links a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        /* ===== 头部标题列的样式 ===== */
+        .header-columns {
+            display: flex;
+            flex-wrap: wrap; /* 允许换行 */
+            justify-content: center;
+            padding: 10px 0;
+            background-color: #eef2f5;
+            border-radius: 0 0 8px 8px; /* 仅保留底部圆角 */
+            margin-top: 10px; /* 调整与上方内容的间距 */
+            
+            /* --- 强制两行显示的关键 CSS --- */
+            height: 150px; /* 示例值，可能需要根据实际标题高度和间距微调 */
+            overflow: hidden; /* 隐藏超出两行的部分 */
+            /* --- 结束关键 CSS --- */
+        }
+        .header-column {
+            flex: 1 1 calc(100% / 7 - 20px); /*  100%/7 加上一些负margin来控制间距 */
+            min-width: 130px; /* 稍微减小最小宽度，以便在两行内容纳更多 */
+            max-width: 200px; /* 限制最大宽度 */
+            text-align: center;
+            padding: 10px 5px;
+            box-sizing: border-box;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            border-right: 1px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px; /* 增加底部间距，便于两行区分 */
+        }
+        .header-column:last-child {
+            border-right: none;
+        }
+        /* 移除最后一行最后一个元素的右边框 */
+        .header-columns .header-column:nth-last-child(-n+7) { 
+             border-right: none;
+        }
+
+        .header-column:hover {
+            background-color: #d4dae0;
+        }
+        .header-column.active {
+            background-color: #3498db;
+            color: white;
+        }
+        /* ===== 内容区样式 ===== */
+        .script-content { /* 统一内容区的样式 */
+            display: none; /* 默认隐藏所有内容 */
+            padding-top: 0; /* 减小顶部内边距 */
+            border-top: none; /* 移除顶部边框 */
+            margin-top: 10px; /* 减小顶部外边距，使上下栏更接近 */
+        }
+        .script-content.active {
+            display: block; /* 显示选中的内容 */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="navbar">
+            <div class="nav-links">
+                <!-- 导航链接已移除 -->
+            </div>
+        </div>
+
+        <!-- 上栏：标题列表 (强制两行显示) -->
+        <div class="header-columns">
+            <!-- 调整顺序，并将指定项放在前面 -->
+            <div class="header-column" data-target="aws-contact-update">AWS 联系地址</div>
+            <div class="header-column" data-target="aws-tax-au">AWS 税务 (AU)</div>
+            <div class="header-column" data-target="aws-iam">AWS IAM 用户</div>
+            
+            <div class="header-column" data-target="ubuntu-debian-config">root开机</div>
+            <div class="header-column" data-target="wireguard">WireGuard</div>
+            <div class="header-column" data-target="hysteria2">Hysteria2</div>
+            <div class="header-column" data-target="socks5">Socks5 代理</div>
+            <div class="header-column" data-target="x-ui">X-ui 面板</div>
+            <div class="header-column" data-target="iptables">iptables 转发</div>
+            <div class="header-column" data-target="aws-lightsail-nv-new-ubuntu-socks5-8888-all-open">AWS EC2 (NV)</div>
+            <div class="header-column" data-target="aws-org">AWS Org 账户</div>
+            <div class="header-column" data-target="aws-org-switch-role">AWS Switch Role</div>
+            <div class="header-column" data-target="aws-ec2-quota">AWS EC2 配额</div>
+            <div class="header-column" data-target="aws-lightsail-firewall">Lightsail 防火墙</div>
+            <div class="header-column" data-target="aws-tax-nepal">AWS 税务 (NP)</div>
+            <div class="header-column" data-target="aws-ec2-ip-refresh">AWS EC2 IP 刷新</div>
+            <!-- 新增 Powershell 初始化脚本项目 -->
+            <div class="header-column" data-target="windows-init-powershell">Windows 初始化</div>
+        </div>
+
+        <!-- 下栏：内容展示区 -->
+        <!-- 所有脚本内容现在都直接放在 .container 下，由 JS 控制显示/隐藏 -->
+        <div id="ubuntu-debian-config" class="script-content">
+            <h3>EC2开机直接修改ROOT密码登录，取消密钥</h3>
+            <p>适用于 Ubuntu 22.04+ 和 Debian 镜像，一键配置ROOT密码登录，无需密钥文件。</p>
+            <p><strong>默认密码：</strong> Root: <code>Password123@</code> | system-user: <code>Pass123@</code></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn">复制代码</button>
+                <pre><code>#!/bin/bash
+
+# ==========================================
+# 参数设置
+# ==========================================
+ROOT_PASS="Password123@"
+NEW_USER="system-user"
+NEW_USER_PASS="Pass123@"
+
+# ==========================================
+# 1. 基础环境准备 (针对 Debian)
+# ==========================================
+apt-get update
+apt-get install -y sudo openssl
+
+# ==========================================
+# 2. Root 账户配置
+# ==========================================
+# 设置密码并解锁 root 账户（防止 Debian 默认锁定 root）
+echo "root:$ROOT_PASS" | chpasswd
+usermod -p $(echo "$ROOT_PASS" | openssl passwd -1 -stdin) root
+
+# ==========================================
+# 3. 创建 system-user 并赋予 Root 权限
+# ==========================================
+# 创建用户（如果不存在）
+if ! id "$NEW_USER" &>/dev/null; then
+    useradd -m -s /bin/bash "$NEW_USER"
+fi
+echo "$NEW_USER:$NEW_USER_PASS" | chpasswd
+
+# 将用户加入 sudo 组
+usermod -aG sudo "$NEW_USER"
+
+# 免密执行 sudo（可选：如果你希望该用户执行 sudo 时不需要输入密码，请取消下面一行的注释）
+# echo "$NEW_USER ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/90-cloud-init-users
+
+# ==========================================
+# 4. SSH 核心配置 (解决 Debian/Ubuntu 冲突)
+# ==========================================
+# 强制覆盖主配置
+sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config
+sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+sed -i 's/^#\?KbdInteractiveAuthentication.*/KbdInteractiveAuthentication yes/g' /etc/ssh/sshd_config
+
+# 处理 Debian 11/12 常见的子配置文件优先级问题
+if [ -d /etc/ssh/sshd_config.d ]; then
+    # 修改子配置文件中的参数，确保不会覆盖主配置
+    sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config.d/*.conf 2>/dev/null
+    sed -i 's/PermitRootLogin no/PermitRootLogin yes/g' /etc/ssh/sshd_config.d/*.conf 2>/dev/null
+fi
+
+# ==========================================
+# 5. 重启 SSH 服务
+# ==========================================
+systemctl restart ssh || systemctl restart sshd
+
+echo "Config Complete: Root and $NEW_USER are ready."</code></pre>
+            </div>
+            <p><strong>使用说明：</strong>配置完成后可直接使用ROOT或system-user账户通过SSH密码登录，无需密钥文件。</p>
+        </div>
+
+        <div id="wireguard" class="script-content">
+            <h3>Ubuntu 24 下快速安装 WireGuard 服务器</h3>
+            <p>WireGuard 是一个现代、快速、安全的 VPN 协议，具有极简的代码库和出色的性能。此脚本可在 Ubuntu 24 系统上快速部署 WireGuard 服务器。</p>
+            <p><strong>适用系统：</strong> Ubuntu 24</p>
+            <p><strong>安装命令：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn">复制代码</button>
+                <pre><code>curl -O https://raw.githubusercontent.com/angristan/wireguard-install/master/wireguard-install.sh
+chmod +x wireguard-install.sh
+./wireguard-install.sh</code></pre>
+            </div>
+            <p><strong>使用说明：</strong></p>
+            <ul>
+                <li>脚本会自动检测系统环境并安装必要的依赖</li>
+                <li>安装过程中会提示您配置服务器参数和客户端信息</li>
+                <li>完成后会生成客户端配置文件，可直接导入 WireGuard 客户端</li>
+                <li>支持多客户端管理，可随时添加或删除客户端</li>
+            </ul>
+        </div>
+
+        <div id="hysteria2" class="script-content">
+            <h3>Hysteria2 一键安装脚本</h3>
+            <p>Hysteria2 是一个功能强大、速度极快且抗审查的代理工具。它利用定制的 QUIC 协议，在不稳定的网络环境下也能提供卓越的性能，并伪装成标准的 HTTP/3 流量，使其难以被检测和屏蔽。</p>
+            <p><strong>适用系统：</strong> Debian (x86)</p>
+            <p><strong>安装命令：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn">复制代码</button>
+                <pre><code>wget -N --no-check-certificate https://raw.githubusercontent.com/flame1ce/hysteria2-install/main/hysteria2-install-main/hy2/hysteria.sh && bash hysteria.sh</code></pre>
+            </div>
+            <p><strong>Windows 客户端：</strong></p>
+            <p>推荐使用 Nekoray 作为 Windows 平台的客户端。</p>
+            <ul>
+                <li><strong>Nekoray 下载地址：</strong> <a href="https://github.com/MatsuriDayo/nekoray/releases/tag/3.26" target="_blank">https://github.com/MatsuriDayo/nekoray/releases/tag/3.26</a></li>
+            </ul>
+        </div>
+
+        <div id="socks5" class="script-content">
+            <h3>Socks5 代理一键部署脚本</h3>
+            <p>此脚本可一键自动部署并配置好 Socks5 代理服务。</p>
+            <p><strong>安装命令：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn">复制代码</button>
+                <pre><code>#!/bin/bash
+bash &lt;(curl -sL https://hosting.sunke.info/files/ss5.sh)</code></pre>
+            </div>
+            <p><strong>默认配置：</strong></p>
+            <ul>
+                <li><strong>端口：</strong> <code>8888</code></li>
+                <li><strong>账号：</strong> <code>8888</code></li>
+                <li><strong>密码：</strong> <code>8888</code></li>
+            </ul>
+        </div>
+
+        <div id="x-ui" class="script-content">
+            <h3>X-ui 面板一键部署脚本</h3>
+            <p>X-ui 是一个支持多协议、多用户的 Xray 图形化管理面板，方便用户进行可视化操作。</p>
+            <p><strong>安装命令：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn">复制代码</button>
+                <pre><code>#!/bin/bash
+bash &lt;(curl -Ls https://hosting.sunke.info/files/3x-ui-install.sh)</code></pre>
+            </div>
+            <p><strong>默认登录信息：</strong></p>
+            <ul>
+                <li><strong>用户名：</strong> <code>admin</code></li>
+                <li><strong>密码：</strong> <code>admin123</code></li>
+                <li><strong>端口：</strong> <code>65432</code></li>
+            </ul>
+        </div>
+
+        <div id="iptables" class="script-content">
+            <h3>iptables 端口转发脚本</h3>
+            <p>这是一个利用 iptables 设置端口转发的便捷脚本，适用于需要进行流量转发的场景。当域名解析的地址发生变化时，它可以自动更新流量转发规则，特别适合 DDNS 域名。</p>
+            <p><strong>安装与使用：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn">复制代码</button>
+                <pre><code>bash &lt;(curl -fsSL https://raw.githubusercontent.com/arloor/iptablesUtils/master/natcfg.sh)</code></pre>
+            </div>
+        </div>
+
+        <div id="aws-lightsail-nv-new-ubuntu-socks5-8888-all-open" class="script-content">
+            <h3>AWS EC2 NV 区域：创建 Nano Ubuntu 机器并配置 Socks5</h3>
+            <p>此脚本可在 AWS EC2 的 <code>us-east-1</code> (NV 区域) 区域创建一个 <code>nano</code> 类型的 Ubuntu 机器，并自动配置 Socks5 代理（端口 <code>8888</code>，账号/密码均为 <code>8888</code>），同时开放该实例的所有端口。完成后会列出新实例的 IP 地址。</p>
+            <p><strong>脚本链接：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn copy-btn-highlight">复制代码</button>
+                <pre><code>curl -sS https://hosting.sunke.info/create_ec2_instance_nv_new_ubuntu_socks5_8888_all_open_list.sh | bash</code></pre>
+            </div>
+        </div>
+
+        <div id="aws-org" class="script-content">
+            <h3>AWS Organizations - 创建新账户</h3>
+            <p>此脚本用于在您的 AWS Organization 中创建一个全新的子账户。</p>
+            <p><strong>使用方法：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn">复制代码</button>
+                <pre><code>curl -sL https://hosting.sunke.info/awsorgcreateuser.sh | bash -s -- &lt;邮箱地址&gt;</code></pre>
+            </div>
+            <p><strong>示例：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn">复制代码</button>
+                <pre><code>curl -sL https://hosting.sunke.info/awsorgcreateuser.sh | bash -s -- xx@xx.xx</code></pre>
+            </div>
+        </div>
+
+        <div id="aws-org-switch-role" class="script-content">
+            <h3>从管理账户切换角色</h3>
+            <p>AWS Organizations 会在新创建的成员账户中自动创建一个名为 <code>OrganizationAccountAccessRole</code> 的 IAM 角色。这个角色拥有对该成员账户的完全管理权限。您可以通过管理账户中拥有相应权限的 IAM 用户来代入（Switch Role）这个角色，从而访问新账户。</p>
+            <p><strong>操作步骤：</strong></p>
+            <ol>
+                <li>以 IAM 用户的身份登录您的 AWS 管理账户（主账户）。<strong>请注意，您不能使用根用户身份来切换角色。</strong></li>
+                <li>确保您登录的 IAM 用户拥有代入角色的权限 (<code>sts:AssumeRole</code>)。</li>
+                <li>在 AWS 管理控制台的右上角，点击您的用户名，然后在下拉菜单中选择“切换角色”（Switch Role）。</li>
+                <li>在切换角色的页面，填写以下信息：
+                    <ul>
+                        <li><strong>账户（Account）:</strong> 输入您新创建的成员账户的 12 位 ID。</li>
+                        <li><strong>角色（Role）:</strong> 输入 <code>OrganizationAccountAccessRole</code>。如果您在创建账户时自定义了角色名称，请输入您自定义的名称。</li>
+                        <li><strong>显示名称（Display Name）:</strong> 输入一个方便您识别的名称，它会显示在控制台的右上角。</li>
+                    </ul>
+                </li>
+                <li>点击“切换角色”（Switch Role）。</li>
+                <li>成功后，您将被重定向到新成员账户的控制台。</li>
+            </ol>
+        </div>
+
+        <div id="aws-ec2-quota" class="script-content">
+            <h3>AWS CLI - 检查 EC2 vCPU 配额</h3>
+            <p>此脚本用于快速查询您 AWS 账户中 <strong>us-east-1</strong> 区域的“按需标准实例”的 vCPU 配额。它会直接返回一个易于阅读的结果。</p>
+            <p><strong>执行命令：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn copy-btn-highlight">复制代码</button>
+                <pre><code>curl -sS https://hosting.sunke.info/ec2quotas.sh | bash</code></pre>
+            </div>
+        </div>
+
+        <div id="aws-lightsail-firewall" class="script-content">
+            <h3>AWS CLI - 开放所有 Lightsail 实例端口</h3>
+            <p>此脚本会自动查找您账户中所有的 Lightsail 实例，并将其防火墙规则修改为对所有 IPv4 和 IPv6 地址开放全部 TCP 和 UDP 端口（0-65535）。</p>
+            <p style="color: #c0392b;"><strong><span style="font-size: 1.1em;">⚠️ 重要安全警告：</span></strong>执行此脚本会移除所有现有的防火墙规则，并将您的所有 Lightsail 实例完全暴露在公共互联网上，这存在极大的安全风险。请仅在您完全了解并接受相关风险的情况下使用。</p>
+            <p><strong>执行命令：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn copy-btn-highlight">复制代码</button>
+                <pre><code>curl -sS https://hosting.sunke.info/lightsailportopen.sh | bash</code></pre>
+            </div>
+        </div>
+
+        <!-- ========== AWS 联系地址, 税务 (AU), IAM 用户 - 放在前面 ========== -->
+        <div id="aws-contact-update" class="script-content">
+            <h3>AWS CLI - 自动更新账户联系地址</h3>
+            <p>此脚本会自动获取您当前的 AWS 账户联系信息，然后仅将 <strong>国家修改为美国 (US)</strong>，<strong>州修改为加利福尼亚 (CA)</strong>，以及<strong>邮政编码修改为 90000</strong>。所有其他信息（如姓名、地址第一行、城市和电话号码）将保持不变。</p>
+            <p><strong>重要：</strong>执行此脚本的环境必须已安装 <code>aws-cli</code> 和 <code>jq</code> (一个命令行JSON处理器)。</p>
+            <p><strong>执行命令：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn copy-btn-red">复制代码</button>
+                <pre><code>curl -sS https://hosting.sunke.info/update_aws_address_partial.sh | bash</code></pre>
+            </div>
+        </div>
+
+        <div id="aws-tax-au" class="script-content">
+            <h3>AWS CLI - 更新税务信息 (澳大利亚)</h3>
+            <p>此脚本用于一键更新 AWS 账户的税务信息为指定的澳大利亚商业信息。脚本会先删除旧的税务信息，然后添加新的配置。</p>
+            <p><strong>执行命令：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn copy-btn-green">复制代码</button>
+                <pre><code>curl -sS https://hosting.sunke.info/tax-au.sh | bash</code></pre>
+            </div>
+        </div>
+
+        <div id="aws-iam" class="script-content">
+            <h3>AWS CLI - 添加 IAM 用户</h3>
+            <p>通过此脚本可以快速在您的 AWS 账户中创建一个新的 IAM 用户。</p>
+            <p><strong>使用方法：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn">复制代码</button>
+                <pre><code>curl -sS https://hosting.sunke.info/awsaimadduser.sh | bash -s -- &lt;用户名&gt; &lt;密码&gt;</code></pre>
+            </div>
+            <p><strong>示例：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn copy-btn-highlight">复制代码</button>
+                <pre><code>curl -sS https://hosting.sunke.info/awsaimadduser.sh | bash -s -- user Pass123@</code></pre>
+            </div>
+        </div>
+        <!-- ========== AWS 联系地址, 税务 (AU), IAM 用户 - 结束 ========== -->
+
+        <div id="aws-tax-nepal" class="script-content">
+            <h3>AWS CLI - 更新税务信息 (尼泊尔)</h3>
+            <p>此脚本用于一键更新 AWS 账户的税务信息为指定的尼泊尔个人信息，并会自动生成一个随机的税务登记号。</p>
+            <p><strong>执行命令：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn copy-btn-green">复制代码</button>
+                <pre><code>curl -sS https://hosting.sunke.info/tax-nepal.sh | bash</code></pre>
+            </div>
+        </div>
+
+        <div id="aws-ec2-ip-refresh" class="script-content">
+            <h3>AWS CLI - 刷新 EC2 实例 IP 地址</h3>
+            <p>此脚本用于为指定的 EC2 实例关联一个新的弹性 IP 地址。执行前，请确保您已有一个可用的弹性 IP 地址。</p>
+            <p><strong>使用方法：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn">复制代码</button>
+                <pre><code>curl -sS https://hosting.sunke.info/newipfresh.sh | bash -s -- &lt;region&gt; &lt;ip-address&gt; &lt;instance-id&gt;</code></pre>
+            </div>
+            <p><strong>参数说明：</strong></p>
+            <ul>
+                <li><code>&lt;region&gt;</code>: 目标 EC2 实例所在的 AWS 区域，例如 <code>us-east-2</code>。</li>
+                <li><code>&lt;ip-address&gt;</code>: 您希望关联到实例的新的弹性 IP 地址。</li>
+                <li><code>&lt;instance-id&gt;</code>: 目标 EC2 实例的 ID，例如 <code>i-094ccfdca8be8c80f</code>。</li>
+            </ul>
+            <p><strong>示例：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn">复制代码</button>
+                <pre><code>curl -sS https://hosting.sunke.info/newipfresh.sh | bash -s -- us-east-2 3.149.176.94 i-094ccfdca8be8c80f</code></pre>
+            </div>
+        </div>
+        
+        <!-- 新增 Powershell 初始化脚本项目 -->
+        <div id="windows-init-powershell" class="script-content">
+            <h3>Windows 初始化脚本 (PowerShell)</h3>
+            <p>此 PowerShell 脚本用于快速完成 Windows 系统的初始化配置。</p>
+            <p><strong>脚本功能：</strong></p>
+            <ul>
+                <li><strong>创建用户：</strong> 添加 <code>user</code> 和 <code>sunke</code> 两个用户，密码均为 <code>Pass123@</code>，并将它们添加到管理员组。</li>
+                <li><strong>密码策略：</strong> 为 <code>user</code>、<code>sunke</code> 和 <code>Administrator</code> 用户设置密码永不过期。</li>
+                <li><strong>防火墙规则：</strong> 为 TCP 端口 80、2200、33899 和 65531 开放入站和出站规则。</li>
+                <li><strong>软件安装：</strong> 自动下载并静默安装最新版本的火狐（Firefox）浏览器。</li>
+            </ul>
+            
+            <p><strong>执行命令：</strong></p>
+            <!-- === 严格保留原始文本，使用 code-block-wrapper，移除复制代码按钮 === -->
+            <div> 
+                <pre class="purple-text-code">
+                <code>
+&lt;powershell&gt;
+net user user Pass123@ /add
+net localgroup administrators user /add
+net user sunke Pass123@ /add
+net localgroup administrators sunke /add
+wmic UserAccount where "Name='user'" set PasswordExpires=FALSE
+wmic UserAccount where "Name='sunke'" set PasswordExpires=FALSE
+wmic UserAccount where "Name='Administrator'" set PasswordExpires=FALSE
+$ports = @(80, 2200, 33899, 65531, 1112, 1114, 65432, 65532, 65533)
+foreach ($port in $ports) {
+    New-NetFirewallRule -DisplayName "TCP Inbound $port" -Direction Inbound -Action Allow -Protocol TCP -LocalPort $port
+    New-NetFirewallRule -DisplayName "TCP Outbound $port" -Direction Outbound -Action Allow -Protocol TCP -RemotePort $port
+}
+$sourceURL = "https://download.mozilla.org/?product=firefox-latest&os=win64&lang=zh-CN"
+$destinationPath = "$env:TEMP\FirefoxInstaller.exe"
+Invoke-WebRequest -Uri $sourceURL -OutFile $destinationPath
+Start-Process -FilePath $destinationPath -ArgumentList "/S" -Wait
+Remove-Item -Path $destinationPath -Force
+&lt;/powershell&gt;
+&lt;powershellArguments&gt;-ExecutionPolicy Unrestricted -NoProfile -NonInteractive&lt;/powershellArguments&gt;
+</code>
+</pre>
+            </div>
+            
+            
+            </div>
+            <!-- === 严格保留原始文本结束 === -->
+        </div>
+    </div>
+
+    <script>
+        // --- 代码复制功能 ---
+        const allCopyButtons = document.querySelectorAll('.copy-btn');
+
+        allCopyButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const buttonElement = event.currentTarget;
+                // Traverse up to the parent element that contains both the button and the code block.
+                // This is typically the div with class "code-block-wrapper".
+                const codeBlockWrapper = buttonElement.closest('.code-block-wrapper'); 
+                
+                if (codeBlockWrapper) {
+                    const preElement = codeBlockWrapper.querySelector('pre'); // Find the <pre> tag within the wrapper
+
+                    if (preElement) {
+                        let codeText = preElement.innerText; // Use innerText to get the visible text content
+
+                        navigator.clipboard.writeText(codeText).then(() => {
+                            const originalText = buttonElement.innerText;
+                            buttonElement.innerText = '已复制!';
+
+                            setTimeout(() => {
+                                buttonElement.innerText = originalText;
+                            }, 2000);
+                        }).catch(err => {
+                            console.error('复制失败: ', err);
+                            const originalText = buttonElement.innerText;
+                            buttonElement.innerText = '复制失败';
+
+                            setTimeout(() => {
+                                buttonElement.innerText = originalText;
+                            }, 2000);
+                        });
+                    }
+                }
+            });
+        });
+
+        // --- 导航栏和内容切换功能 ---
+        const headerColumns = document.querySelectorAll('.header-column');
+        const allScriptContentBlocks = document.querySelectorAll('.script-content'); 
+
+        function showDetail(detailId) {
+            // Hide all script content blocks first
+            allScriptContentBlocks.forEach(block => {
+                block.style.display = 'none';
+            });
+
+            // Show the target detail block
+            const targetDetail = document.getElementById(detailId);
+            if (targetDetail) {
+                targetDetail.style.display = 'block';
+            }
+
+            // Update active state for header columns (individual titles)
+            headerColumns.forEach(column => {
+                if (column.getAttribute('data-target') === detailId) {
+                    column.classList.add('active');
+                } else {
+                    column.classList.remove('active');
+                }
+            });
+        }
+
+        // --- Event Listeners ---
+
+        // Initialize the page: show the first detail item and activate its header column
+        // Make sure the initial detail ID exists and corresponds to one of the script-content IDs.
+        // If 'aws-contact-update' is the desired initial view, ensure it has a corresponding 'script-content' div.
+        // If 'windows-init-powershell' should be default, change initialDetailId.
+        const initialDetailId = 'ubuntu-debian-config'; 
+        showDetail(initialDetailId);
+
+        // Listener for header columns (individual titles)
+        headerColumns.forEach(column => {
+            column.addEventListener('click', (event) => {
+                const targetDetailId = column.getAttribute('data-target');
+                if (targetDetailId) {
+                    showDetail(targetDetailId);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

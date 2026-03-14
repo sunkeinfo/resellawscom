@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS EC2 韩国区域 Windows 2022 实例启动教程</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #232f3e;
+            text-align: center;
+            border-bottom: 3px solid #ff9900;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #232f3e;
+            border-left: 4px solid #ff9900;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+        .step {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #f39c12;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        ul, ol {
+            padding-left: 25px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .config-table th, .config-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .config-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .config-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .screenshot-placeholder {
+            background: #e9ecef;
+            border: 2px dashed #adb5bd;
+            padding: 40px;
+            text-align: center;
+            margin: 15px 0;
+            border-radius: 5px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AWS EC2 韩国区域 Windows 2022 实例启动教程</h1>
+        
+        <div class="warning">
+            <strong>⚠️ 重要提示：</strong>本教程将创建一个具有完全开放防火墙的EC2实例，仅用于测试环境。生产环境请务必配置适当的安全组规则。
+        </div>
+
+        <h2>1. 前提条件</h2>
+        <div class="step">
+            <ul>
+                <li>拥有有效的AWS账户</li>
+                <li>具有EC2实例创建权限</li>
+                <li>了解AWS基本操作界面</li>
+                <li>确保账户有足够的配额启动C5N.9XLARGE实例</li>
+            </ul>
+        </div>
+
+        <h2>2. 登录AWS控制台</h2>
+        <div class="step">
+            <ol>
+                <li>访问 <a href="https://aws.amazon.com/console/" target="_blank">AWS管理控制台</a></li>
+                <li>使用您的AWS账户凭证登录</li>
+                <li>在右上角选择 <span class="highlight">亚太地区（首尔）ap-northeast-2</span> 区域</li>
+            </ol>
+            <div class="screenshot-placeholder">
+                [截图：AWS控制台区域选择界面]
+            </div>
+        </div>
+
+        <h2>3. 启动EC2实例</h2>
+        
+        <h3>3.1 进入EC2服务</h3>
+        <div class="step">
+            <ol>
+                <li>在AWS控制台搜索框中输入"EC2"</li>
+                <li>点击"EC2"服务进入EC2控制面板</li>
+                <li>点击 <span class="highlight">"启动实例"</span> 按钮</li>
+            </ol>
+        </div>
+
+        <h3>3.2 配置实例详细信息</h3>
+        <div class="step">
+            <h4>步骤1：选择AMI（Amazon Machine Image）</h4>
+            <ol>
+                <li>在"名称和标签"部分，输入实例名称：<span class="highlight">Windows-2022-Test</span></li>
+                <li>在"应用程序和操作系统映像"部分：
+                    <ul>
+                        <li>选择 <span class="highlight">"Microsoft Windows"</span></li>
+                        <li>选择 <span class="highlight">"Microsoft Windows Server 2022 Base"</span></li>
+                        <li>架构选择：<span class="highlight">64位(x86)</span></li>
+                    </ul>
+                </li>
+            </ol>
+            
+            <h4>步骤2：选择实例类型</h4>
+            <ol>
+                <li>在"实例类型"部分，搜索并选择 <span class="highlight">c5n.9xlarge</span></li>
+                <li>确认配置：36 vCPUs, 96 GiB 内存</li>
+            </ol>
+
+            <table class="config-table">
+                <tr>
+                    <th>配置项</th>
+                    <th>值</th>
+                    <th>说明</th>
+                </tr>
+                <tr>
+                    <td>实例类型</td>
+                    <td>c5n.9xlarge</td>
+                    <td>高性能计算优化实例</td>
+                </tr>
+                <tr>
+                    <td>vCPUs</td>
+                    <td>36</td>
+                    <td>虚拟CPU核心数</td>
+                </tr>
+                <tr>
+                    <td>内存</td>
+                    <td>96 GiB</td>
+                    <td>系统内存</td>
+                </tr>
+                <tr>
+                    <td>网络性能</td>
+                    <td>高达100 Gbps</td>
+                    <td>网络带宽</td>
+                </tr>
+            </table>
+        </div>
+
+        <h3>3.3 密钥对配置</h3>
+        <div class="step">
+            <ol>
+                <li>在"密钥对（登录）"部分</li>
+                <li>选择 <span class="highlight">"创建新的密钥对"</span></li>
+                <li>密钥对名称：<span class="highlight">windows-korea-key</span></li>
+                <li>密钥对类型：<span class="highlight">RSA</span></li>
+                <li>私有密钥文件格式：<span class="highlight">.pem</span></li>
+                <li>点击 <span class="highlight">"创建密钥对"</span></li>
+                <li>系统会自动下载 <span class="highlight">windows-korea-key.pem</span> 文件，请妥善保存</li>
+            </ol>
+            <div class="warning">
+                <strong>重要：</strong>私钥文件只能下载一次，请务必保存在安全位置。丢失私钥将无法获取Windows管理员密码。
+            </div>
+        </div>
+
+        <h3>3.4 网络设置</h3>
+        <div class="step">
+            <ol>
+                <li>在"网络设置"部分，点击 <span class="highlight">"编辑"</span></li>
+                <li>VPC：保持默认或选择您的VPC</li>
+                <li>子网：选择可用区域内的公有子网</li>
+                <li>自动分配公有IP：<span class="highlight">启用</span></li>
+                <li>防火墙（安全组）：
+                    <ul>
+                        <li>选择 <span class="highlight">"创建安全组"</span></li>
+                        <li>安全组名称：<span class="highlight">windows-open-all</span></li>
+                        <li>描述：<span class="highlight">允许所有流量（仅测试用）</span></li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h4>安全组规则配置：</h4>
+            <table class="config-table">
+                <tr>
+                    <th>类型</th>
+                    <th>协议</th>
+                    <th>端口范围</th>
+                    <th>源</th>
+                    <th>描述</th>
+                </tr>
+                <tr>
+                    <td>所有流量</td>
+                    <td>所有</td>
+                    <td>所有</td>
+                    <td>0.0.0.0/0</td>
+                    <td>允许所有入站流量</td>
+                </tr>
+            </table>
+
+            <div class="warning">
+                <strong>⚠️ 安全警告：</strong>开放所有流量存在严重安全风险，仅适用于测试环境。生产环境请限制特定端口和IP范围。
+            </div>
+        </div>
+
+        <h3>3.5 配置存储</h3>
+        <div class="step">
+            <ol>
+                <li>在"配置存储"部分</li>
+                <li>根卷配置：
+                    <ul>
+                        <li>大小：<span class="highlight">50 GiB</span></li>
+                        <li>卷类型：<span class="highlight">gp3</span>（通用SSD）</li>
+                        <li>IOPS：3000（默认）</li>
+                        <li>吞吐量：125 MiB/s（默认）</li>
+                        <li>加密：可选择启用</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+
+
+        <h2>4. 启动实例</h2>
+        <div class="step">
+            <ol>
+                <li>检查所有配置是否正确</li>
+                <li>在右侧摘要面板中确认：
+                    <ul>
+                        <li>实例类型：c5n.9xlarge</li>
+                        <li>AMI：Windows Server 2022</li>
+                        <li>存储：50 GB gp3</li>
+                        <li>安全组：允许所有流量</li>
+                    </ul>
+                </li>
+                <li>点击 <span class="highlight">"启动实例"</span> 按钮</li>
+                <li>等待实例状态变为"正在运行"（通常需要3-5分钟）</li>
+            </ol>
+        </div>
+
+        <h2>5. 获取Windows管理员密码</h2>
+        <div class="step">
+            <h3>5.1 等待实例完全启动</h3>
+            <ol>
+                <li>在EC2控制台中选择您的实例</li>
+                <li>等待实例状态变为"正在运行"</li>
+                <li>等待状态检查完成（2/2项检查通过，通常需要5-10分钟）</li>
+            </ol>
+
+            <h3>5.2 获取管理员密码</h3>
+            <ol>
+                <li>在EC2控制台中，右键点击您的实例</li>
+                <li>选择 <span class="highlight">"连接"</span></li>
+                <li>点击 <span class="highlight">"RDP客户端"</span> 选项卡</li>
+                <li>点击 <span class="highlight">"获取密码"</span> 按钮</li>
+                <li>点击 <span class="highlight">"浏览"</span> 选择之前下载的 <span class="highlight">windows-korea-key.pem</span> 文件</li>
+                <li>点击 <span class="highlight">"解密密码"</span></li>
+                <li>复制显示的管理员密码</li>
+            </ol>
+
+            <div class="screenshot-placeholder">
+                [截图：AWS控制台获取Windows密码界面]
+            </div>
+        </div>
+
+        <h2>6. 连接到实例</h2>
+        <div class="step">
+            <h3>6.1 使用远程桌面连接</h3>
+            <ol>
+                <li>打开Windows远程桌面连接（mstsc）</li>
+                <li>输入实例的公有IP地址</li>
+                <li>使用以下凭证登录：
+                    <ul>
+                        <li>用户名：<span class="highlight">Administrator</span></li>
+                        <li>密码：<span class="highlight">从AWS控制台获取的解密密码</span></li>
+                    </ul>
+                </li>
+                <li>点击"连接"</li>
+            </ol>
+
+            <h3>6.2 替代连接方法</h3>
+            <p>您也可以直接从AWS控制台连接：</p>
+            <ol>
+                <li>在实例详情页面，点击 <span class="highlight">"连接"</span></li>
+                <li>选择 <span class="highlight">"RDP客户端"</span></li>
+                <li>点击 <span class="highlight">"下载远程桌面文件"</span></li>
+                <li>双击下载的.rdp文件</li>
+                <li>输入解密后的管理员密码</li>
+            </ol>
+        </div>
+
+        <h2>7. 验证配置</h2>
+        <div class="step">
+            <h3>登录后验证以下项目：</h3>
+            <ol>
+                <li><strong>系统信息：</strong>验证系统为Windows Server 2022，硬盘容量为50GB</li>
+                <li><strong>网络连接：</strong>确认可以访问互联网</li>
+                <li><strong>管理员权限：</strong>确认当前用户具有管理员权限</li>
+            </ol>
+
+            <h3>验证命令（在PowerShell中执行）：</h3>
+            <div class="code-block">
+# 检查系统信息
+Get-ComputerInfo | Select-Object WindowsProductName, TotalPhysicalMemory
+
+# 检查磁盘空间
+Get-WmiObject -Class Win32_LogicalDisk | Select-Object DeviceID, Size, FreeSpace
+
+# 检查网络连接
+Test-NetConnection -ComputerName google.com -Port 80
+            </div>
+        </div>
+
+        <h2>8. 成本估算</h2>
+        <div class="step">
+            <p>C5N.9XLARGE实例在韩国区域的大致成本（价格可能变动）：</p>
+            <table class="config-table">
+                <tr>
+                    <th>资源</th>
+                    <th>规格</th>
+                    <th>预估月费用（USD）</th>
+                </tr>
+                <tr>
+                    <td>EC2实例</td>
+                    <td>c5n.9xlarge</td>
+                    <td>~$1,400</td>
+                </tr>
+                <tr>
+                    <td>EBS存储</td>
+                    <td>50GB gp3</td>
+                    <td>~$4</td>
+                </tr>
+                <tr>
+                    <td>数据传输</td>
+                    <td>变量</td>
+                    <td>根据使用量</td>
+                </tr>
+            </table>
+            <p>请访问 <a href="https://calculator.aws" target="_blank">AWS定价计算器</a> 获取准确的成本估算。</p>
+        </div>
+
+        <h2>9. 安全建议</h2>
+        <div class="warning">
+            <h3>⚠️ 重要安全提醒</h3>
+            <ul>
+                <li><strong>更改管理员密码：</strong>登录后建议更改Administrator密码</li>
+                <li><strong>限制网络访问：</strong>生产环境中应限制安全组规则，仅开放必要端口</li>
+                <li><strong>启用CloudTrail：</strong>监控API调用和用户活动</li>
+                <li><strong>定期更新：</strong>保持Windows系统和软件更新</li>
+                <li><strong>备份策略：</strong>配置EBS快照进行数据备份</li>
+                <li><strong>监控成本：</strong>设置账单警报避免意外费用</li>
+            </ul>
+        </div>
+
+        <h2>10. 故障排除</h2>
+        <div class="step">
+            <h3>常见问题及解决方案：</h3>
+            
+            <h4>问题1：无法连接到实例</h4>
+            <ul>
+                <li>检查实例状态是否为"正在运行"</li>
+                <li>确认安全组规则允许RDP连接（端口3389）</li>
+                <li>验证公有IP地址是否正确</li>
+                <li>等待用户数据脚本执行完成</li>
+            </ul>
+
+            <h4>问题2：无法获取管理员密码</h4>
+            <ul>
+                <li>确认实例已完全启动（状态检查通过）</li>
+                <li>检查私钥文件格式是否正确</li>
+                <li>等待更长时间后重试（最多15分钟）</li>
+            </ul>
+
+            <h4>问题3：实例启动失败</h4>
+            <ul>
+                <li>检查账户配额限制</li>
+                <li>确认选择的可用区支持c5n.9xlarge</li>
+                <li>验证IAM权限</li>
+            </ul>
+        </div>
+
+        <h2>11. 清理资源</h2>
+        <div class="step">
+            <p>测试完成后，请及时终止实例以避免持续费用：</p>
+            <ol>
+                <li>在EC2控制台选择实例</li>
+                <li>点击"实例状态" → "终止实例"</li>
+                <li>确认终止操作</li>
+                <li>删除相关的安全组（如不再需要）</li>
+            </ol>
+        </div>
+
+        <div class="warning">
+            <p><strong>免责声明：</strong>本教程仅用于学习和测试目的。在生产环境中部署时，请务必遵循AWS安全最佳实践，并根据实际需求调整配置。使用AWS服务将产生费用，请注意监控和控制成本。</p>
+        </div>
+
+        <hr style="margin: 30px 0; border: none; border-top: 2px solid #e9ecef;">
+        <p style="text-align: center; color: #6c757d; font-size: 14px;">
+            © 2024 AWS EC2 Windows 实例启动教程 | 最后更新：2024年12月
+        </p>
+    </div>
+</body>
+</html>

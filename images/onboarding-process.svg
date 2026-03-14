@@ -1,0 +1,29 @@
+<svg width="500" height="300" viewBox="0 0 500 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="500" height="300" rx="12" fill="#f8fafc"/>
+<rect x="20" y="20" width="460" height="260" rx="8" fill="white"/>
+<rect x="40" y="40" width="420" height="30" rx="4" fill="#e2e8f0"/>
+<rect x="50" y="48" width="140" height="14" rx="2" fill="#8b5cf6"/>
+<circle cx="100" cy="130" r="25" fill="#dbeafe"/>
+<text x="100" y="125" text-anchor="middle" fill="#2563eb" font-size="16" font-weight="bold">1</text>
+<text x="100" y="170" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="bold">Schedule Call</text>
+<path d="M125 130L155 130" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow)"/>
+<circle cx="180" cy="130" r="25" fill="#dcfce7"/>
+<text x="180" y="125" text-anchor="middle" fill="#10b981" font-size="16" font-weight="bold">2</text>
+<text x="180" y="170" text-anchor="middle" fill="#10b981" font-size="12" font-weight="bold">Fill Form</text>
+<path d="M205 130L235 130" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow)"/>
+<circle cx="260" cy="130" r="25" fill="#fef3c7"/>
+<text x="260" y="125" text-anchor="middle" fill="#f59e0b" font-size="16" font-weight="bold">3</text>
+<text x="260" y="170" text-anchor="middle" fill="#f59e0b" font-size="12" font-weight="bold">Switch Billing</text>
+<path d="M285 130L315 130" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow)"/>
+<circle cx="340" cy="130" r="25" fill="#f3e8ff"/>
+<text x="340" y="125" text-anchor="middle" fill="#8b5cf6" font-size="16" font-weight="bold">4</text>
+<text x="340" y="170" text-anchor="middle" fill="#8b5cf6" font-size="12" font-weight="bold">Start Saving</text>
+<rect x="100" y="200" width="240" height="40" rx="8" fill="#dcfce7"/>
+<text x="220" y="218" text-anchor="middle" fill="#10b981" font-size="14" font-weight="bold">Complete in 24 Hours</text>
+<text x="220" y="232" text-anchor="middle" fill="#10b981" font-size="12">No disruption to your services</text>
+<defs>
+<marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+<polygon points="0 0, 8 3, 0 6" fill="#6b7280"/>
+</marker>
+</defs>
+</svg>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI模型调用申请表 (最终修正版)</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f8f9fa; max-width: 700px; margin: 40px auto; padding: 20px; color: #333; }
+        .form-container { background-color: #fff; padding: 2em; border-radius: 8px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+        h1 { text-align: center; margin-bottom: 1.5em; }
+        .form-group { margin-bottom: 2em; }
+        label.main-label { display: block; margin-bottom: 1em; font-weight: bold; font-size: 1.1em; }
+        .options-group label { display: block; margin-bottom: 0.75em; font-weight: normal; }
+        input[type="radio"] { margin-right: 10px; }
+        input[type="email"], input[type="text"], textarea { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; }
+        textarea { resize: vertical; }
+        button { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: background-color 0.3s; }
+        button:hover { background-color: #0056b3; }
+        #form-status { margin-top: 20px; font-weight: bold; text-align: center; }
+        .required-star { color: red; }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h1>AI模型调用申请表</h1>
+
+    <form id="ai-application-form">
+        <!-- 问题1: AI模型 -->
+        <div class="form-group">
+            <label class="main-label">1. 选择您需要的AI模型 <span class="required-star">*</span></label>
+            <div class="options-group">
+                <label><input type="radio" name="model_choice" value="Claude 3 Opus, Claude 3.7 Sonnet, Claude 3 Haiku 等Anthropic Claude 系列" required> Claude 3 Opus, Claude 3.7 Sonnet, Claude 3 Haiku 等Anthropic Claude 系列</label>
+                <label><input type="radio" name="model_choice" value="Llama 3、Llama 3.1 等Meta系列"> Llama 3、Llama 3.1 等Meta系列</label>
+                <label><input type="radio" name="model_choice" value="Stable Diffusion 3 (SD3), Stable Image Ultra, SDXL"> Stable Diffusion 3 (SD3), Stable Image Ultra, SDXL</label>
+                <label><input type="radio" name="model_choice" value="Amazon Titan Text、Titan Image Generator、Titan Multimodal Embeddings，以及最新的 Amazon Nova 系列"> Amazon Titan Text、Titan Image Generator、Titan Multimodal Embeddings，以及最新的 Amazon Nova 系列</label>
+                <label><input type="radio" name="model_choice" value="Mistral Large、Mixtral 8x7B Instruct"> Mistral Large、Mixtral 8x7B Instruct</label>
+                <label><input type="radio" name="model_choice" value="其他 (请在联系时说明)"> 其他 (请在联系时说明)</label>
+            </div>
+        </div>
+        <!-- 问题2: AWS账户 -->
+        <div class="form-group">
+            <label class="main-label">2. 您是否自带AWS额度账户 <span class="required-star">*</span></label>
+            <div class="options-group">
+                <label><input type="radio" name="aws_status" value="是，我在我自己的AWS账户使用AI模型，希望享受账单折扣和积分优惠" required> 是，我在我自己的AWS账户使用AI模型，希望享受账单折扣和积分优惠</label>
+                <label><input type="radio" name="aws_status" value="不，我没有AWS账户，我希望开通一个新账号，我能预充值，并获得账单折扣"> 不，我没有AWS账户，我希望开通一个新账号，我能预充值，并获得账单折扣</label>
+            </div>
+        </div>
+        <!-- 问题3: 使用经验 -->
+        <div class="form-group">
+            <label class="main-label" for="experience_details">3. 您曾经在哪里使用过AI模型，每月消费多少？ <span class="required-star">*</span></label>
+            <textarea id="experience_details" name="experience_details" rows="5" required></textarea>
+        </div>
+        <!-- 问题4: 付款方式 -->
+        <div class="form-group">
+            <label class="main-label">4. 选择付款方式</label>
+             <div class="options-group">
+                <label><input type="radio" name="payment_method" value="USDT 数字加密货币"> USDT 数字加密货币</label>
+                <label><input type="radio" name="payment_method" value="轉数快– FPS 香港"> 轉数快– FPS 香港</label>
+                <label><input type="radio" name="payment_method" value="信用卡"> 信用卡</label>
+                <label><input type="radio" name="payment_method" value="在线商城"> 在线商城</label>
+                <label><input type="radio" name="payment_method" value="支付宝/微信"> 支付宝/微信</label>
+            </div>
+        </div>
+        <!-- 问题5: Email -->
+        <div class="form-group">
+            <label class="main-label" for="user_email">5. 您的Email邮箱 (必填) <span class="required-star">*</span></label>
+            <input type="email" id="user_email" name="user_email" required>
+        </div>
+        <!-- 问题6: 其他联系方式 -->
+        <div class="form-group">
+            <label class="main-label" for="other_contact">您的其他联系方式 (Telegram/QQ等)</label>
+            <input type="text" id="other_contact" name="other_contact" placeholder="选填，例如 Telegram: @your_id">
+        </div>
+        <!-- 提交按钮 -->
+        <button type="submit">提交申请</button>
+    </form>
+    <p id="form-status"></p>
+</div>
+
+<script>
+    const form = document.getElementById('ai-application-form');
+    const status = document.getElementById('form-status');
+
+    // ==================== 最终配置区域 (已为您完整填写) ====================
+    
+    // 1. 您的Jotform API密钥
+    const API_KEY = "59c3d0daff978970895f7e01d21d6dfc";
+
+    // 2. 使用您旧表单的ID
+    const FORM_ID = "252472555018053";
+
+    // 3. 已为您完整映射所有字段，确保所有数据都被发送
+    const FIELD_MAP = {
+        'model_choice':     '12', // [已映射] -> 旧表单的文本框 (q12_typeA)
+        'aws_status':       '13', // [已映射] -> 旧表单的文本框 (q13_typeA13)
+        'experience_details': '18', // [已映射] -> 旧表单的文本域 (q18_typeA18)
+        'payment_method':   '14', // [已映射] -> 旧表单的文本框 (q14_typeA14)
+        'user_email':       '4',  // [已映射] -> 旧表单的Email字段 (q4_email)
+        'other_contact':    '15'  // [已映射] -> 旧表单的文本框 (q15_typeA15)
+    };
+    // ======================================================================
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        status.textContent = '正在提交...';
+        status.style.color = 'orange';
+
+        const formData = new FormData(form);
+        const submissions = new URLSearchParams();
+
+        for (const formName in FIELD_MAP) {
+            const jotformQID = FIELD_MAP[formName];
+            
+            if (jotformQID) {
+                let value = '';
+                const field = form.querySelector(`[name="${formName}"]`);
+                // 对于单选按钮，我们需要特殊处理找到被选中的那一个
+                if (field && field.type === 'radio') {
+                    const checkedRadio = form.querySelector(`input[name="${formName}"]:checked`);
+                    if (checkedRadio) { value = checkedRadio.value; }
+                } else {
+                    value = formData.get(formName);
+                }
+
+                // 只有当值存在时，才添加到提交数据中
+                if (value) {
+                    submissions.append(`submission[${jotformQID}]`, value);
+                }
+            }
+        }
+        
+        const url = `https://api.jotform.com/form/${FORM_ID}/submissions?apiKey=${API_KEY}`;
+
+        fetch(url, {
+            method: 'POST',
+            body: submissions
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.responseCode === 200) {
+                status.textContent = '申请提交成功，感谢您！';
+                status.style.color = 'green';
+                form.reset();
+            } else {
+                status.textContent = '提交失败：' + (data.message || '请检查您的配置。');
+                status.style.color = 'red';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            status.textContent = '提交时发生网络错误，请检查浏览器控制台。';
+            status.style.color = 'red';
+        });
+    });
+</script>
+
+</body>
+</html>

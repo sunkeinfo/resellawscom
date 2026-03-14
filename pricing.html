@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7QMJ1LB7ZQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7QMJ1LB7ZQ');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Tiers - ResellAWS.com</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.svg">
+    <style>
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .tier-range {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin: 5px 0;
+        }
+        
+        .pricing-card .price .amount {
+            font-size: 2.5rem;
+        }
+        
+        .pricing-card .price .period {
+            font-size: 1rem;
+        }
+        
+        .pricing-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .pricing-card:hover {
+            border: 2px solid #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+        
+        .pricing-card .popular-badge {
+            display: none;
+        }
+        
+        .pricing-card:hover .popular-badge {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .examples-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .examples-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .faq-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .faq-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <img src="images/logo.svg" alt="RESELLAWS">
+                    <a href="index.html"><span>ResellAWS.com</span></a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="features.html">Services</a></li>
+                    <li><a href="pricing.html" class="active">Pricing</a></li>
+                    <li><a href="shop/">Shop</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Tiered Discount Pricing for AWS Services</h1>
+                <p>Higher discounts for higher usage - save more as you scale</p>
+            </div>
+        </section>
+
+        <section class="pricing-plans">
+            <div class="container">
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div class="plan-header">
+                            <h3>Starter</h3>
+                            <div class="price">
+                                <span class="amount">10%</span>
+                                <span class="period"> OFF</span>
+                            </div>
+                            <p class="tier-range">$0 - $500/month</p>
+                        </div>
+                        <div class="plan-features">
+                            <ul>
+                                <li>Pay 90% of original AWS bill</li>
+                                <li>Perfect for small projects</li>
+                                <li>Development & testing</li>
+                                <li>Basic support included</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <div class="plan-header">
+                            <h3>Growth</h3>
+                            <div class="price">
+                                <span class="amount">20%</span>
+                                <span class="period"> OFF</span>
+                            </div>
+                            <p class="tier-range">$500 - $2,000/month</p>
+                        </div>
+                        <div class="plan-features">
+                            <ul>
+                                <li>Pay 80% of original AWS bill</li>
+                                <li>Ideal for growing businesses</li>
+                                <li>Production workloads</li>
+                                <li>Migration support included</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <div class="plan-header">
+                            <div class="popular-badge">Popular</div>
+                            <h3>Scale</h3>
+                            <div class="price">
+                                <span class="amount">30%</span>
+                                <span class="period"> OFF</span>
+                            </div>
+                            <p class="tier-range">$2,000 - $5,000/month</p>
+                        </div>
+                        <div class="plan-features">
+                            <ul>
+                                <li>Pay 70% of original AWS bill</li>
+                                <li>Enterprise-ready solutions</li>
+                                <li>High-performance computing</li>
+                                <li>Priority technical support</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <div class="plan-header">
+                            <h3>Enterprise</h3>
+                            <div class="price">
+                                <span class="amount">40%</span>
+                                <span class="period"> OFF</span>
+                            </div>
+                            <p class="tier-range">$5,000+/month</p>
+                        </div>
+                        <div class="plan-features">
+                            <ul>
+                                <li>Pay 60% of original AWS bill</li>
+                                <li>Large-scale deployments</li>
+                                <li>Custom solutions</li>
+                                <li>Dedicated account manager</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pricing-examples" style="margin-top: 40px;">
+                    <h3 style="text-align: center; margin-bottom: 30px;">Pricing Examples</h3>
+                    
+                    <div class="examples-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+                        <div class="example-card" style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+                            <h4 style="color: #667eea;">Starter Tier</h4>
+                            <div style="margin: 15px 0;">
+                                <p style="color: #dc3545; font-size: 1.2rem;">AWS Bill: $300</p>
+                                <p style="color: #28a745; font-size: 1.5rem; font-weight: bold;">You Pay: $270</p>
+                                <p style="color: #6c757d;">Save $30 (10% off)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-card" style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+                            <h4 style="color: #667eea;">Growth Tier</h4>
+                            <div style="margin: 15px 0;">
+                                <p style="color: #dc3545; font-size: 1.2rem;">AWS Bill: $1,000</p>
+                                <p style="color: #28a745; font-size: 1.5rem; font-weight: bold;">You Pay: $800</p>
+                                <p style="color: #6c757d;">Save $200 (20% off)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-card" style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+                            <h4 style="color: #667eea;">Scale Tier</h4>
+                            <div style="margin: 15px 0;">
+                                <p style="color: #dc3545; font-size: 1.2rem;">AWS Bill: $3,000</p>
+                                <p style="color: #28a745; font-size: 1.5rem; font-weight: bold;">You Pay: $2,100</p>
+                                <p style="color: #6c757d;">Save $900 (30% off)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-card" style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+                            <h4 style="color: #667eea;">Enterprise Tier</h4>
+                            <div style="margin: 15px 0;">
+                                <p style="color: #dc3545; font-size: 1.2rem;">AWS Bill: $8,000</p>
+                                <p style="color: #28a745; font-size: 1.5rem; font-weight: bold;">You Pay: $4,800</p>
+                                <p style="color: #6c757d;">Save $3,200 (40% off)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn-primary" onclick="window.location.href='contact.html'">Get AWS Account</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing-faq">
+            <div class="container">
+                <h2>How It Works</h2>
+                <div class="faq-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+                    <div class="faq-item">
+                        <h4>1. Get AWS Account</h4>
+                        <p>We provide you with a stable, US-based AWS account with IAM access and necessary permissions.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>2. Use AWS Services</h4>
+                        <p>Deploy your applications using EC2, S3, RDS, and other AWS services as you normally would.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>3. We Pay Your Bills</h4>
+                        <p>We handle your monthly AWS invoices through our billing management system with tiered discounts.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>4. You Save Money</h4>
+                        <p>Pay us based on your usage tier via Wire Transfer, PayPal, or WISE - save 60-90% every month.</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <h3>Have More Questions?</h3>
+                    <p>Check our comprehensive FAQ for detailed information about accounts, services, and billing.</p>
+                    <button class="btn-secondary" onclick="window.location.href='faq.html'">View FAQ</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ResellAWS.com</h4>
+                    <p>Advanced-tier AWS Partner helping startups optimize cloud costs</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="features.html">AWS Account Services</a></li>
+                        <li><a href="pricing.html">Tiered Discount Pricing</a></li>
+                        <li><a href="shop/">Shop AWS Credits</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="contact.html">Get AWS Account</a></li>
+                        <li><a href="faq.html">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ResellAWS.com. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+      (function(d,t) {
+        var BASE_URL="https://app.chatwoot.com";
+        var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=BASE_URL+"/packs/js/sdk.js";
+        g.defer=true;
+        g.async=true;
+        s.parentNode.insertBefore(g,s);
+        g.onload=function(){
+          window.chatwootSDK.run({
+            websiteToken: '26KZM3FSZgqMKsxKvei1N8ge',
+            baseUrl: BASE_URL,
+            locale: 'en'
+          })
+        }
+      })(document,"script");
+    </script>
+</body>
+</html>
