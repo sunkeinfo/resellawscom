@@ -388,7 +388,7 @@
                 })
             });
             const result = await res.json();
-            if (res.ok && result.status === 'success') {
+            if (res.ok) {
                 msg.style.display = 'block';
                 msg.style.background = '#d4edda';
                 msg.style.color = '#155724';

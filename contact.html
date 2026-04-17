@@ -90,35 +90,42 @@
 
                     <div class="contact-form">
                         <h2>AWS Bill Payment Service Request</h2>
-                        <form id="contactForm" method="POST">
+                        <form id="contactForm">
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="name">Full Name</label>
-                                    <input type="text" id="name" name="name" required>
+                                    <label for="name">Full Name *</label>
+                                    <input type="text" id="name" name="name" placeholder="Your full name" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email">Email Address</label>
-                                    <input type="email" id="email" name="email" required>
+                                    <label for="email">Email Address *</label>
+                                    <input type="email" id="email" name="email" placeholder="you@email.com" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="monthly-consumption">Estimated Monthly Consumption</label>
+                                <label for="telegram">Telegram / WhatsApp <span style="font-weight:400; color:#64748b;">(optional)</span></label>
+                                <input type="text" id="telegram" name="telegram" placeholder="e.g. @telegramid or +1234567890">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="monthly-consumption">Estimated Monthly AWS Spend *</label>
                                 <select id="monthly-consumption" name="monthly-consumption" required>
                                     <option value="">Select your range</option>
-                                    <option value="100-500">$100 - $500</option>
-                                    <option value="500-1000">$500 - $1,000</option>
-                                    <option value="1000-3000">$1,000 - $3,000</option>
-                                    <option value="3000-5000">$3,000 - $5,000</option>
-                                    <option value="5000+">$5,000+</option>
+                                    <option value="Under $500">Under $500 (10% off)</option>
+                                    <option value="$500 - $1,000">$500 - $1,000 (20% off)</option>
+                                    <option value="$1,000 - $3,000">$1,000 - $3,000 (20% off)</option>
+                                    <option value="$3,000 - $5,000">$3,000 - $5,000 (30% off)</option>
+                                    <option value="$5,000+">$5,000+ (40% off)</option>
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <label for="message">Additional Information</label>
                                 <textarea id="message" name="message" rows="4" placeholder="Do you have existing AWS accounts with outstanding bills? Current monthly AWS spending? Any specific requirements?"></textarea>
                             </div>
-                            <button type="submit" class="btn-primary">Request Bill Payment Service</button>
-                            <div id="formMessage" style="margin-top: 15px; padding: 10px; border-radius: 5px; display: none;"></div>
+
+                            <button type="submit" class="btn-primary" style="width:100%;">Request Bill Payment Service</button>
+                            <div id="formMessage" style="margin-top:15px; padding:14px; border-radius:10px; display:none; text-align:center;"></div>
                         </form>
                     </div>
                 </div>
@@ -187,48 +194,49 @@
         </div>
     </footer>
     <script>
-        // Obfuscated form endpoint
-        const formEndpoint = atob('aHR0cHM6Ly9mb3Jtc3ByZWUuaW8vZi9tbGR3cGJkcQ==');
-        
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            const formData = new FormData(this);
-            const messageDiv = document.getElementById('formMessage');
-            const submitBtn = this.querySelector('button[type="submit"]');
-            
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            
+            const btn = this.querySelector('button[type="submit"]');
+            const msg = document.getElementById('formMessage');
+            const data = Object.fromEntries(new FormData(this));
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+            const html = `
+                <p><b>Full Name:</b> ${data.name}</p>
+                <p><b>Email:</b> ${data.email}</p>
+                <p><b>Telegram/WhatsApp:</b> ${data.telegram || 'N/A'}</p>
+                <p><b>Monthly Spend:</b> ${data['monthly-consumption']}</p>
+                <p><b>Additional Info:</b> ${data.message || 'N/A'}</p>
+            `;
             try {
-                const response = await fetch(formEndpoint, {
+                const res = await fetch('https://api.pingram.io/send', {
                     method: 'POST',
-                    body: formData,
                     headers: {
-                        'Accept': 'application/json'
-                    }
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer pingram_sk_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJrZXlfOTRjZDJlOGFkOTYwMzU1OTJlOTAzZWI5NmU5ZDg5M2IiLCJ2ZXJzaW9uIjoxLCJhY2NvdW50SWQiOiIwOTdidWx1bGJkamZtOTY5eHJtcmlqaXo0MyIsImtleVR5cGUiOiJzZWNyZXQiLCJlbnZpcm9ubWVudElkIjoiMDk3YnVsdWxiZGpmbTk2OXhybXJpaml6NDMifQ.iNezQ3sgydRwDtWBQsYTITkfM9nEPeV5eS8VXBYYmDg'
+                    },
+                    body: JSON.stringify({
+                        type: 'email_compose_preview',
+                        to: { email: 'snaagk@gmail.com' },
+                        email: { subject: 'New Bill Payment Request from ResellAWS.com', html: html }
+                    })
                 });
-                
-                if (response.ok) {
-                    messageDiv.style.display = 'block';
-                    messageDiv.style.backgroundColor = '#d4edda';
-                    messageDiv.style.color = '#155724';
-                    messageDiv.style.border = '1px solid #c3e6cb';
-                    messageDiv.textContent = 'Thank you! Your request has been submitted successfully. We will contact you within 24 hours.';
+                if (res.ok) {
+                    msg.style.display = 'block';
+                    msg.style.background = '#d4edda';
+                    msg.style.color = '#155724';
+                    msg.textContent = 'Thank you! Your request has been submitted. We will contact you within 24 hours.';
                     this.reset();
-                } else {
-                    throw new Error('Form submission failed');
-                }
-            } catch (error) {
-                messageDiv.style.display = 'block';
-                messageDiv.style.backgroundColor = '#f8d7da';
-                messageDiv.style.color = '#721c24';
-                messageDiv.style.border = '1px solid #f5c6cb';
-                messageDiv.textContent = 'Sorry, there was an error submitting your request. Please try again.';
+                } else { throw new Error(); }
+            } catch {
+                msg.style.display = 'block';
+                msg.style.background = '#f8d7da';
+                msg.style.color = '#721c24';
+                msg.textContent = 'Sorry, there was an error. Please try again or email contact@resellaws.com directly.';
             }
-            
-            submitBtn.textContent = 'Request Bill Payment Service';
-            submitBtn.disabled = false;
+            btn.textContent = 'Request Bill Payment Service';
+            btn.disabled = false;
         });
     </script>
     <script src="script.js"></script>
