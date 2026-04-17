@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7QMJ1LB7ZQ"></script>
@@ -14,6 +14,15 @@
     <title>AWS Benefits - ResellAWS.com</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="images/favicon.svg">
+    <style>
+        .sprite { display: inline-block; background-image: url('imgs/Copilot_20260319_071622.png'); background-repeat: no-repeat; }
+        .icon-gear     { background-position: -509px -183px; width: 138px; height: 114px; transform: scale(0.4); transform-origin: top left; }
+        .icon-chart    { background-position: -986px -341px; width: 145px; height: 115px; transform: scale(0.4); transform-origin: top left; }
+        .icon-computer { background-position: -1158px -357px; width: 155px; height: 96px;  transform: scale(0.4); transform-origin: top left; }
+        .icon-lock-y   { background-position: -686px -336px;  width: 109px; height: 120px; transform: scale(0.4); transform-origin: top left; }
+        .icon-wrap     { display: inline-block; overflow: hidden; vertical-align: middle; }
+        .icon-wrap.sz  { width: 55px; height: 46px; }
+    </style>
 </head>
 <body>
     <header>
@@ -27,7 +36,6 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="features.html" class="active">Services</a></li>
                     <li><a href="pricing.html">Pricing</a></li>
-                    <li><a href="shop/">Shop</a></li>
                     <li><a href="faq.html">FAQ</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -57,7 +65,9 @@
                         </ul>
                     </div>
                     <div class="feature-image">
-                        <img src="images/aws-discount.svg" alt="AWS Discounts">
+                        <div style="display:flex; justify-content:center; align-items:center; height:200px;">
+                            <div class="icon-wrap" style="width:145px;height:115px;"><span class="sprite icon-chart" style="transform:scale(1); transform-origin:top left;"></span></div>
+                        </div>
                     </div>
                 </div>
 
@@ -73,7 +83,9 @@
                         </ul>
                     </div>
                     <div class="feature-image">
-                        <img src="images/aws-support.svg" alt="AWS Accounts">
+                        <div style="display:flex; justify-content:center; align-items:center; height:200px;">
+                            <div class="icon-wrap" style="width:109px;height:120px;"><span class="sprite icon-lock-y" style="transform:scale(1); transform-origin:top left;"></span></div>
+                        </div>
                     </div>
                 </div>
 
@@ -89,7 +101,9 @@
                         </ul>
                     </div>
                     <div class="feature-image">
-                        <img src="images/cost-audit.svg" alt="Bill Management">
+                        <div style="display:flex; justify-content:center; align-items:center; height:200px;">
+                            <div class="icon-wrap" style="width:138px;height:114px;"><span class="sprite icon-gear" style="transform:scale(1); transform-origin:top left;"></span></div>
+                        </div>
                     </div>
                 </div>
 
@@ -100,12 +114,14 @@
                         <ul>
                             <li>EC2 migration using Amazon Machine Images (AMIs)</li>
                             <li>Remote support via AnyDesk/TeamViewer</li>
-                            <li>Multiple payment methods (Wire, PayPal, WISE)</li>
+                            <li>Multiple payment methods (USDT, PayPal, Wire Transfer, Payoneer)</li>
                             <li>Account activation and setup assistance</li>
                         </ul>
                     </div>
                     <div class="feature-image">
-                        <img src="images/onboarding-process.svg" alt="Technical Support">
+                        <div style="display:flex; justify-content:center; align-items:center; height:200px;">
+                            <div class="icon-wrap" style="width:155px;height:96px;"><span class="sprite icon-computer" style="transform:scale(1); transform-origin:top left;"></span></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,14 +141,22 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>ResellAWS.com</h4>
-                    <p>Advanced-tier AWS Partner helping startups optimize cloud costs</p>
+                    <p>US-based AWS reseller providing stable, long-term AWS accounts with 10-40% tiered discounts on all services. We handle your AWS billing so you save more as you scale.</p>
+                    <div style="margin-top:14px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 28" width="80" height="28" style="flex-shrink:0;">
+                            <rect width="80" height="28" rx="4" fill="#232f3e"/>
+                            <text x="8" y="18" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#ff9900">aws</text>
+                            <text x="30" y="12" font-family="Arial,sans-serif" font-size="6" fill="#ffffff">Partner</text>
+                            <text x="30" y="21" font-family="Arial,sans-serif" font-size="7" font-weight="bold" fill="#ffffff">Advanced Tier</text>
+                        </svg>
+                        <span style="font-size:12px; color:#94a3b8;">Advanced Tier Reseller Partner</span>
+                    </div>
                 </div>
                 <div class="footer-section">
                     <h4>Services</h4>
                     <ul>
                         <li><a href="features.html">AWS Account Services</a></li>
                         <li><a href="pricing.html">Tiered Discount Pricing</a></li>
-                        <li><a href="shop/">Shop AWS Credits</a></li>
                         <li><a href="faq.html">FAQ</a></li>
                     </ul>
                 </div>

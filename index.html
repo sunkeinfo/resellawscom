@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7QMJ1LB7ZQ"></script>
@@ -14,6 +14,19 @@
     <title>ResellAWS.com - AWS Reseller Partner | Save on AWS Costs</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="images/favicon.svg">
+    <style>
+        .sprite { display: inline-block; background-image: url('imgs/Copilot_20260319_071622.png'); background-repeat: no-repeat; }
+        .icon-home     { background-position: -340px -184px; width: 132px; height: 110px; transform: scale(0.4); transform-origin: top left; }
+        .icon-gear     { background-position: -509px -183px; width: 138px; height: 114px; transform: scale(0.4); transform-origin: top left; }
+        .icon-chart    { background-position: -986px -341px; width: 145px; height: 115px; transform: scale(0.4); transform-origin: top left; }
+        .icon-computer { background-position: -1158px -357px; width: 155px; height: 96px;  transform: scale(0.4); transform-origin: top left; }
+        .icon-email    { background-position: -1166px -191px; width: 137px; height: 101px; transform: scale(0.4); transform-origin: top left; }
+        .icon-globe    { background-position: -343px -338px;  width: 130px; height: 128px; transform: scale(0.4); transform-origin: top left; }
+        .icon-lock-y   { background-position: -686px -336px;  width: 109px; height: 120px; transform: scale(0.4); transform-origin: top left; }
+        .icon-user     { background-position: -190px -337px;  width: 116px; height: 127px; transform: scale(0.4); transform-origin: top left; }
+        .icon-wrap     { display: inline-block; overflow: hidden; vertical-align: middle; }
+        .icon-wrap.sz  { width: 55px; height: 46px; }
+    </style>
 </head>
 <body>
     <header>
@@ -27,7 +40,6 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="features.html">Services</a></li>
                     <li><a href="pricing.html">Pricing</a></li>
-                    <li><a href="shop/">Shop</a></li>
                     <li><a href="faq.html">FAQ</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -57,22 +69,22 @@
                 <h2>Why Choose ResellAWS.com</h2>
                 <div class="features-grid">
                     <div class="feature-card">
-                        <img src="images/cost-icon.svg" alt="60% Discount">
+                        <div class="icon-wrap sz"><span class="sprite icon-chart"></span></div>
                         <h3>10-40% Tiered Discounts</h3>
                         <p>Higher discounts for higher usage - save more as you scale on all AWS services</p>
                     </div>
                     <div class="feature-card">
-                        <img src="images/monitoring-icon.svg" alt="Stable Accounts">
+                        <div class="icon-wrap sz"><span class="sprite icon-lock-y"></span></div>
                         <h3>Stable US-Based Accounts</h3>
                         <p>Normal, long-term usable AWS accounts with IAM access and necessary permissions</p>
                     </div>
                     <div class="feature-card">
-                        <img src="images/report-icon.svg" alt="Bill Payment">
+                        <div class="icon-wrap sz"><span class="sprite icon-globe"></span></div>
                         <h3>We Pay Your Bills</h3>
                         <p>Outstanding invoices and monthly bills handled through our billing management system</p>
                     </div>
                     <div class="feature-card">
-                        <img src="images/alert-icon.svg" alt="Technical Support">
+                        <div class="icon-wrap sz"><span class="sprite icon-computer"></span></div>
                         <h3>Migration Support</h3>
                         <p>EC2 migration assistance using AMIs and remote support via AnyDesk</p>
                     </div>
@@ -109,14 +121,22 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>ResellAWS.com</h4>
-                    <p>Advanced-tier AWS Partner helping startups optimize cloud costs</p>
+                    <p>US-based AWS reseller providing stable, long-term AWS accounts with 10-40% tiered discounts on all services. We handle your AWS billing so you save more as you scale.</p>
+                    <div style="margin-top:14px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 28" width="80" height="28" style="flex-shrink:0;">
+                            <rect width="80" height="28" rx="4" fill="#232f3e"/>
+                            <text x="8" y="18" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#ff9900">aws</text>
+                            <text x="30" y="12" font-family="Arial,sans-serif" font-size="6" fill="#ffffff">Partner</text>
+                            <text x="30" y="21" font-family="Arial,sans-serif" font-size="7" font-weight="bold" fill="#ffffff">Advanced Tier</text>
+                        </svg>
+                        <span style="font-size:12px; color:#94a3b8;">Advanced Tier Reseller Partner</span>
+                    </div>
                 </div>
                 <div class="footer-section">
                     <h4>Services</h4>
                     <ul>
                         <li><a href="features.html">AWS Account Services</a></li>
                         <li><a href="pricing.html">Tiered Discount Pricing</a></li>
-                        <li><a href="shop/">Shop AWS Credits</a></li>
                         <li><a href="faq.html">Frequently Asked Questions</a></li>
                     </ul>
                 </div>

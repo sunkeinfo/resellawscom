@@ -15,19 +15,15 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="images/favicon.svg">
     <style>
-        .form-row {
-            display: flex;
-            gap: 20px;
-        }
-        .form-row .form-group {
-            flex: 1;
-        }
-        @media (max-width: 768px) {
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-        }
+        .sprite { display: inline-block; background-image: url('imgs/Copilot_20260319_071622.png'); background-repeat: no-repeat; }
+        .icon-email    { background-position: -1166px -191px; width: 137px; height: 101px; transform: scale(0.35); transform-origin: top left; }
+        .icon-email-open { background-position: -508px -339px; width: 141px; height: 117px; transform: scale(0.35); transform-origin: top left; }
+        .icon-lock-y   { background-position: -686px -336px;  width: 109px; height: 120px; transform: scale(0.35); transform-origin: top left; }
+        .icon-chart    { background-position: -986px -341px; width: 145px; height: 115px; transform: scale(0.35); transform-origin: top left; }
+        .icon-wrap     { display: inline-block; overflow: hidden; vertical-align: middle; }
+        .form-row { display: flex; gap: 20px; }
+        .form-row .form-group { flex: 1; }
+        @media (max-width: 768px) { .form-row { flex-direction: column; gap: 0; } }
     </style>
 </head>
 <body>
@@ -42,7 +38,6 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="features.html">Services</a></li>
                     <li><a href="pricing.html">Pricing</a></li>
-                    <li><a href="shop/">Shop</a></li>
                     <li><a href="faq.html">FAQ</a></li>
                     <li><a href="contact.html" class="active">Contact</a></li>
                 </ul>
@@ -64,28 +59,28 @@
                     <div class="contact-info">
                         <h2>Contact Information</h2>
                         <div class="contact-item">
-                            <img src="images/email-icon.svg" alt="Email">
+                            <div class="icon-wrap" style="width:48px;height:35px;margin-right:20px;"><span class="sprite icon-email"></span></div>
                             <div>
                                 <h4>Email</h4>
                                 <p>contact@resellaws.com</p>
                             </div>
                         </div>
                         <div class="contact-item">
-                            <img src="images/time-icon.svg" alt="Response Time">
+                            <div class="icon-wrap" style="width:38px;height:42px;margin-right:20px;"><span class="sprite icon-lock-y"></span></div>
                             <div>
                                 <h4>Response Time</h4>
                                 <p>Within 24 hours</p>
                             </div>
                         </div>
                         <div class="contact-item">
-                            <img src="images/monitoring-icon.svg" alt="Support">
+                            <div class="icon-wrap" style="width:48px;height:40px;margin-right:20px;"><span class="sprite icon-chart"></span></div>
                             <div>
                                 <h4>Expert Support</h4>
                                 <p>AWS certified professionals</p>
                             </div>
                         </div>
                         <div class="contact-item">
-                            <img src="images/cost-icon.svg" alt="60% Discount">
+                            <div class="icon-wrap" style="width:50px;height:41px;margin-right:20px;"><span class="sprite icon-email-open"></span></div>
                             <div>
                                 <h4>10-40% Tiered Discounts</h4>
                                 <p>On all AWS services</p>
@@ -159,14 +154,22 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>ResellAWS.com</h4>
-                    <p>Advanced-tier AWS Partner helping startups optimize cloud costs</p>
+                    <p>US-based AWS reseller providing stable, long-term AWS accounts with 10-40% tiered discounts on all services. We handle your AWS billing so you save more as you scale.</p>
+                    <div style="margin-top:14px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 28" width="80" height="28" style="flex-shrink:0;">
+                            <rect width="80" height="28" rx="4" fill="#232f3e"/>
+                            <text x="8" y="18" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#ff9900">aws</text>
+                            <text x="30" y="12" font-family="Arial,sans-serif" font-size="6" fill="#ffffff">Partner</text>
+                            <text x="30" y="21" font-family="Arial,sans-serif" font-size="7" font-weight="bold" fill="#ffffff">Advanced Tier</text>
+                        </svg>
+                        <span style="font-size:12px; color:#94a3b8;">Advanced Tier Reseller Partner</span>
+                    </div>
                 </div>
                 <div class="footer-section">
                     <h4>Services</h4>
                     <ul>
                         <li><a href="features.html">AWS Account Services</a></li>
                         <li><a href="pricing.html">Tiered Discount Pricing</a></li>
-                        <li><a href="shop/">Shop AWS Credits</a></li>
                         <li><a href="faq.html">FAQ</a></li>
                     </ul>
                 </div>
