@@ -619,6 +619,96 @@ aws iam attach-user-policy --user-name 45opus --policy-arn arn:aws:iam::${ACCOUN
 aws iam create-user --user-name 46opus
 aws iam attach-user-policy --user-name 46opus --policy-arn arn:aws:iam::${ACCOUNT_ID}:policy/46opus</code></pre>
             </div>
+
+            <h4>创建 Claude Sonnet 4.6 IAM 策略和用户</h4>
+            <p>此脚本用于创建 IAM 策略和用户，用于访问 Claude Sonnet 4.6 模型。</p>
+            <p><strong>功能说明：</strong></p>
+            <ul>
+                <li>创建 IAM 策略 <code>sonnet46</code>，允许调用 Claude Sonnet 4.6 模型</li>
+                <li>创建 IAM 用户 <code>sonnet46</code> 并附加对应策略</li>
+                <li>支持直接访问和推理配置文件访问</li>
+                <li>支持 AWS Marketplace 订阅管理</li>
+            </ul>
+            <p><strong>执行命令（AWS CloudShell）：</strong></p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn copy-btn-highlight">复制代码</button>
+                <pre><code>ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+
+aws iam create-policy --policy-name sonnet46 --policy-document '{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowClaudeSonnet46DirectAccess",
+            "Effect": "Allow",
+            "Action": [
+                "bedrock:InvokeModel",
+                "bedrock:InvokeModelWithResponseStream"
+            ],
+            "Resource": "arn:aws:bedrock:*::foundation-model/*anthropic.claude-sonnet-4-6"
+        },
+        {
+            "Sid": "AllowAllInferenceProfilesForSonnet46",
+            "Effect": "Allow",
+            "Action": [
+                "bedrock:InvokeModel",
+                "bedrock:InvokeModelWithResponseStream"
+            ],
+            "Resource": "arn:aws:bedrock:*:*:inference-profile/*anthropic.claude-sonnet-4-6"
+        },
+        {
+            "Sid": "AllowCustomInferenceProfilesByGenetics",
+            "Effect": "Allow",
+            "Action": [
+                "bedrock:InvokeModel",
+                "bedrock:InvokeModelWithResponseStream"
+            ],
+            "Resource": "arn:aws:bedrock:*:*:inference-profile/*",
+            "Condition": {
+                "StringEquals": {
+                    "bedrock:FoundationModelId": "anthropic.claude-sonnet-4-6"
+                }
+            }
+        },
+        {
+            "Sid": "AllowOnlyClaudeSonnet46Subscription",
+            "Effect": "Allow",
+            "Action": [
+                "aws-marketplace:ViewSubscriptions",
+                "aws-marketplace:Subscribe"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "ForAllValues:StringEquals": {
+                    "aws-marketplace:ProductId": [
+                        "prod-ffvjxvh4ltq64"
+                    ]
+                },
+                "StringEquals": {
+                    "aws:CalledViaLast": "bedrock.amazonaws.com"
+                }
+            }
+        },
+        {
+            "Sid": "DenyOtherMarketplaceSubscriptions",
+            "Effect": "Deny",
+            "Action": [
+                "aws-marketplace:Subscribe"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "ForAnyValue:StringNotEquals": {
+                    "aws-marketplace:ProductId": [
+                        "prod-ffvjxvh4ltq64"
+                    ]
+                }
+            }
+        }
+    ]
+}'
+
+aws iam create-user --user-name sonnet46
+aws iam attach-user-policy --user-name sonnet46 --policy-arn arn:aws:iam::${ACCOUNT_ID}:policy/sonnet46</code></pre>
+            </div>
         </div>
         <!-- ========== AWS 联系地址, 税务 (AU), IAM 用户 - 结束 ========== -->
 
