@@ -768,7 +768,7 @@ net localgroup administrators sunke /add
 wmic UserAccount where "Name='user'" set PasswordExpires=FALSE
 wmic UserAccount where "Name='sunke'" set PasswordExpires=FALSE
 wmic UserAccount where "Name='Administrator'" set PasswordExpires=FALSE
-$ports = @(80, 2200, 33899, 65531, 1112, 1114, 65432, 65532, 65533)
+$ports = @(80, 2200, 33899, 65531, 1112, 1114, 65432, 65532, 65533, 8011)
 foreach ($port in $ports) {
     New-NetFirewallRule -DisplayName "TCP Inbound $port" -Direction Inbound -Action Allow -Protocol TCP -LocalPort $port
     New-NetFirewallRule -DisplayName "TCP Outbound $port" -Direction Outbound -Action Allow -Protocol TCP -RemotePort $port
