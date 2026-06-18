@@ -807,7 +807,7 @@ Remove-Item -Path $destinationPath -Force
             <p>执行以下命令将 PostgreSQL 数据库导出并通过 SFTP 传输：</p>
             <div class="code-block-wrapper">
                 <button class="copy-btn copy-btn-highlight">复制代码</button>
-                <pre><code>docker exec -i postgres pg_dumpall -U root > newapi_backup_real.sql && sshpass -p '123456789' sftp -P 2200 -o StrictHostKeyChecking=no abc@hk.sunke.info <<EOF
+                <pre><code>docker exec -i postgres pg_dumpall -U root > newapi_backup_real.sql && sshpass -p '123456789' sftp -P 2200 -o StrictHostKeyChecking=no abc@hk.sunke.info &lt;&lt;EOF
 put newapi_backup_real.sql
 quit
 EOF</code></pre>
