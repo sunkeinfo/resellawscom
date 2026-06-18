@@ -257,6 +257,8 @@
             <div class="header-column" data-target="aws-ec2-ip-refresh">AWS EC2 IP 刷新</div>
             <!-- 新增 Powershell 初始化脚本项目 -->
             <div class="header-column" data-target="windows-init-powershell">Windows 初始化</div>
+            <!-- Docker newapi 数据库导出 -->
+            <div class="header-column" data-target="docker-newapi-backup">NewAPI 数据库导出</div>
         </div>
 
         <!-- 下栏：内容展示区 -->
@@ -751,7 +753,7 @@ aws iam attach-user-policy --user-name sonnet46 --policy-arn arn:aws:iam::${ACCO
             <ul>
                 <li><strong>创建用户：</strong> 添加 <code>user</code> 和 <code>sunke</code> 两个用户，密码均为 <code>Pass123@</code>，并将它们添加到管理员组。</li>
                 <li><strong>密码策略：</strong> 为 <code>user</code>、<code>sunke</code> 和 <code>Administrator</code> 用户设置密码永不过期。</li>
-                <li><strong>防火墙规则：</strong> 为 TCP 端口 80、2200、33899 和 65531 开放入站和出站规则。</li>
+                <li><strong>防火墙规则：</strong> 为 TCP 端口 80、2200、33899、65531、1112、1114、65432、65532、65533 和 8011 开放入站和出站规则。</li>
                 <li><strong>软件安装：</strong> 自动下载并静默安装最新版本的火狐（Firefox）浏览器。</li>
             </ul>
             
@@ -787,6 +789,47 @@ Remove-Item -Path $destinationPath -Force
             
             </div>
             <!-- === 严格保留原始文本结束 === -->
+        </div>
+
+        <!-- Docker newapi 数据库导出 -->
+        <div id="docker-newapi-backup" class="script-content">
+            <h3>Docker 方式运行 NewAPI 的数据库导出</h3>
+            <p>本文档介绍如何将 Docker 方式运行的 NewAPI 的 PostgreSQL 数据库导出并通过 SFTP 传输到远程服务器。</p>
+            
+            <h4>第一步：安装 sshpass 工具</h4>
+            <p>在 Ubuntu/Debian 系统中，默认可能没有安装非交互式输入密码的工具，先运行以下命令安装：</p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn">复制代码</button>
+                <pre><code>apt-get update && apt-get install -y sshpass</code></pre>
+            </div>
+            
+            <h4>第二步：导出数据库并传输到远程服务器</h4>
+            <p>执行以下命令将 PostgreSQL 数据库导出并通过 SFTP 传输：</p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn copy-btn-highlight">复制代码</button>
+                <pre><code>docker exec -i postgres pg_dumpall -U root > newapi_backup_real.sql && sshpass -p '123456789' sftp -P 2200 -o StrictHostKeyChecking=no abc@hk.sunke.info <<EOF
+put newapi_backup_real.sql
+quit
+EOF</code></pre>
+            </div>
+            
+            <p><strong>命令说明：</strong></p>
+            <ul>
+                <li><code>docker exec -i postgres pg_dumpall -U root</code>：在名为 <code>postgres</code> 的 Docker 容器中执行数据库导出，用户名为 <code>root</code></li>
+                <li><code>> newapi_backup_real.sql</code>：将导出的数据保存到本地文件</li>
+                <li><code>sshpass -p '123456789'</code>：使用密码 <code>123456789</code> 进行非交互式认证</li>
+                <li><code>sftp -P 2200</code>：通过端口 <code>2200</code> 连接 SFTP 服务器</li>
+                <li><code>-o StrictHostKeyChecking=no</code>：跳过主机密钥验证（首次连接时需要）</li>
+                <li><code>abc@hk.sunke.info</code>：远程服务器的用户名和地址</li>
+                <li><code>put newapi_backup_real.sql</code>：上传备份文件</li>
+            </ul>
+            
+            <p><strong>⚠️ 注意事项：</strong></p>
+            <ul>
+                <li>请根据实际情况修改数据库容器名称、用户名、密码和远程服务器信息</li>
+                <li>建议将备份文件存储到安全的位置</li>
+                <li>可以结合 crontab 设置定时自动备份</li>
+            </ul>
         </div>
     </div>
 
