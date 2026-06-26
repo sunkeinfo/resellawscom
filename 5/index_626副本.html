@@ -338,13 +338,17 @@ echo "Config Complete: Root and $NEW_USER are ready."</code></pre>
             <p><strong>安装命令：</strong></p>
             <div class="code-block-wrapper">
                 <button class="copy-btn">复制代码</button>
-                <pre><code>curl -O https://hosting.sunke.info/wireguard-install/wireguard-install.sh
+                <pre><code>curl -O https://raw.githubusercontent.com/angristan/wireguard-install/master/wireguard-install.sh
 chmod +x wireguard-install.sh
 ./wireguard-install.sh</code></pre>
             </div>
-            <p><strong>介绍说明：</strong>整个安装流程现在完全无需人工干预：自动检测配置 → 安装 WireGuard → 生成 test 客户端 → 下载远程 wg0.conf 替换 → 重启服务。</p>
-            <p><strong>使用方法：</strong>这里是下载 sample 客户端文件，把 IP 地址和名字改成你的服务器 IP 就可以用啦</p>
-            <p><a href="https://hosting.sunke.info/wireguard-install/ens5-wireguard-t3micro/ali.elhaji-Mumbai-wg0-client-user1.conf.mywireguard.com.conf" target="_blank">https://hosting.sunke.info/wireguard-install/ens5-wireguard-t3micro/ali.elhaji-Mumbai-wg0-client-user1.conf.mywireguard.com.conf</a></p>
+            <p><strong>使用说明：</strong></p>
+            <ul>
+                <li>脚本会自动检测系统环境并安装必要的依赖</li>
+                <li>安装过程中会提示您配置服务器参数和客户端信息</li>
+                <li>完成后会生成客户端配置文件，可直接导入 WireGuard 客户端</li>
+                <li>支持多客户端管理，可随时添加或删除客户端</li>
+            </ul>
         </div>
 
         <div id="hysteria2" class="script-content">
