@@ -185,7 +185,7 @@
         }
         .header-column {
             flex: 1 1 calc(100% / 7 - 20px); /*  100%/7 加上一些负margin来控制间距 */
-            min-width: 130px; /* 稍微减小最小宽度，以便在两行内容纳更多 */
+            min-width: 110px; /* 稍微减小最小宽度，以便在两行内容纳更多 */
             max-width: 200px; /* 限制最大宽度 */
             text-align: center;
             padding: 10px 5px;
@@ -258,7 +258,9 @@
             <!-- 新增 Powershell 初始化脚本项目 -->
             <div class="header-column" data-target="windows-init-powershell">Windows 初始化</div>
             <!-- Docker newapi 数据库导出 -->
-            <div class="header-column" data-target="docker-newapi-backup">NewAPI 数据库导出</div>
+            <div class="header-column" data-target="docker-newapi-backup">DB备份</div>
+            <!-- EC2 配额监控软件 -->
+            <div class="header-column" data-target="ec2-quota-monitor">配额监控</div>
         </div>
 
         <!-- 下栏：内容展示区 -->
@@ -335,6 +337,7 @@ echo "Config Complete: Root and $NEW_USER are ready."</code></pre>
             <h3>Ubuntu 24 下快速安装 WireGuard 服务器</h3>
             <p>WireGuard 是一个现代、快速、安全的 VPN 协议，具有极简的代码库和出色的性能。此脚本可在 Ubuntu 24 系统上快速部署 WireGuard 服务器。</p>
             <p><strong>适用系统：</strong> Ubuntu 24</p>
+            <p style="color: #c0392b;"><strong>⚠️ 重要提示：</strong>必须使用 EC2 的 <strong>t3.micro</strong> 实例类型。如果使用 t2.micro，由于网卡名称不同，脚本将无法正常工作，需要额外手动调整配置，比较麻烦。</p>
             <p><strong>安装命令：</strong></p>
             <div class="code-block-wrapper">
                 <button class="copy-btn">复制代码</button>
@@ -781,10 +784,46 @@ Remove-Item -Path $destinationPath -Force
 </code>
 </pre>
             </div>
-            
-            
-            </div>
             <!-- === 严格保留原始文本结束 === -->
+        </div>
+
+        <!-- EC2 配额监控软件 -->
+        <div id="ec2-quota-monitor" class="script-content">
+            <h3>EC2 配额监控软件</h3>
+            <p>这是一款基于 Python + Flask 的 AWS EC2 vCPU 配额监控工具，支持多账号批量监控，可实时查看各区域的配额使用情况。</p>
+
+            <h4>方式一：Ubuntu / Linux 一键安装（推荐）</h4>
+            <p>在 Ubuntu / Linux 系统上，执行以下命令即可自动下载并完成安装：</p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn copy-btn-green">复制代码</button>
+                <pre><code>sudo apt update && sudo apt install -y wget unzip && wget https://hosting.sunke.info/ec2-quota-monitor-linux.zip && unzip ec2-quota-monitor-linux.zip && chmod +x install.sh && sudo ./install.sh</code></pre>
+            </div>
+
+            <h4>方式二：Windows 手动安装</h4>
+
+            <h5>第一步：下载软件</h5>
+            <p><strong>软件下载地址：</strong></p>
+            <p><a href="https://hosting.sunke.info/ec2-quota-monitor.zip" target="_blank">https://hosting.sunke.info/ec2-quota-monitor.zip</a></p>
+
+            <h5>第二步：安装 Python</h5>
+            <p>请先确保系统已安装 Python 3，可从 <a href="https://www.python.org/downloads/" target="_blank">https://www.python.org/downloads/</a> 下载安装。</p>
+
+            <h5>第三步：安装必要依赖</h5>
+            <p>解压软件后，在软件目录中执行以下命令安装所需 Python 包：</p>
+            <div class="code-block-wrapper">
+                <button class="copy-btn copy-btn-highlight">复制代码</button>
+                <pre><code>pip install "flask==3.0.0" "apscheduler==3.10.4" "boto3==1.34.0" "cryptography==41.0.7" "python-dotenv==1.0.0" "pingram>=0.1.0"</code></pre>
+            </div>
+
+            <p><strong>依赖说明：</strong></p>
+            <ul>
+                <li><code>flask==3.0.0</code>：Web 框架，提供可视化界面</li>
+                <li><code>apscheduler==3.10.4</code>：定时任务调度，用于定期刷新配额数据</li>
+                <li><code>boto3==1.34.0</code>：AWS SDK，用于调用 AWS API 获取配额信息</li>
+                <li><code>cryptography==41.0.7</code>：加密库，用于安全存储 AWS 密钥</li>
+                <li><code>python-dotenv==1.0.0</code>：环境变量管理</li>
+                <li><code>pingram>=0.1.0</code>：通知推送支持</li>
+            </ul>
         </div>
 
         <!-- Docker newapi 数据库导出 -->
