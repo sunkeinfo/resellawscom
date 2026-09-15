@@ -385,35 +385,64 @@
         const data = Object.fromEntries(new FormData(this));
         btn.textContent = 'Sending...';
         btn.disabled = true;
-        const html = `<p><b>Service Type:</b> ${data.service_type}</p><p><b>Monthly Spend:</b> ${data.monthly_spend}</p><p><b>Email:</b> ${data.email}</p><p><b>Telegram/WhatsApp:</b> ${data.telegram || 'N/A'}</p><p><b>Payment Method:</b> ${data.payment_method}</p>`;
+        
+        // Get visitor IP
+        let visitorIp = 'N/A';
         try {
-            const res = await fetch('https://api.pingram.io/send', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer pingram_sk_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJrZXlfOTRjZDJlOGFkOTYwMzU1OTJlOTAzZWI5NmU5ZDg5M2IiLCJ2ZXJzaW9uIjoxLCJhY2NvdW50SWQiOiIwOTdidWx1bGJkamZtOTY5eHJtcmlqaXo0MyIsImtleVR5cGUiOiJzZWNyZXQiLCJlbnZpcm9ubWVudElkIjoiMDk3YnVsdWxiZGpmbTk2OXhybXJpaml6NDMifQ.iNezQ3sgydRwDtWBQsYTITkfM9nEPeV5eS8VXBYYmDg'
-                },
-                body: JSON.stringify({
-                    type: 'email_compose_preview',
-                    to: { email: 'snaagk@gmail.com' },
-                    email: { subject: 'New AWS Account Request from ResellAWS.com', html: html }
-                })
-            });
-            const result = await res.json();
-            if (res.ok) {
-                msg.style.display = 'block';
-                msg.style.background = '#d4edda';
-                msg.style.color = '#155724';
-                msg.textContent = 'Request submitted! We will contact you within 24 hours.';
-                this.reset();
-            } else { throw new Error(); }
-        } catch {
-            msg.style.display = 'block';
-            msg.style.background = '#f8d7da';
-            msg.style.color = '#721c24';
-            msg.textContent = 'Something went wrong. Please try again or email us directly.';
-        }
+            const ipRes = await fetch('https://checkip.amazonaws.com');
+            visitorIp = (await ipRes.text()).trim();
+        } catch(e) {}
+        
+        const ipLink = visitorIp !== 'N/A' ? `<a href="https://ipinfo.io/${visitorIp}" style="color:#1D4ED8;font-family:monospace;">${visitorIp}</a>` : 'N/A';
+        const timestamp = new Date().toUTCString();
+        
+        const html = `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;"><h2 style="color:#1D4ED8;">New AWS Account Request</h2><table style="width:100%;border-collapse:collapse;margin-top:16px;"><tr><td style="padding:8px;border:1px solid #e2e8f0;font-weight:600;background:#f8fafc;width:160px;">Service Type</td><td style="padding:8px;border:1px solid #e2e8f0;">${data.service_type}</td></tr><tr><td style="padding:8px;border:1px solid #e2e8f0;font-weight:600;background:#f8fafc;">Monthly Spend</td><td style="padding:8px;border:1px solid #e2e8f0;">${data.monthly_spend}</td></tr><tr><td style="padding:8px;border:1px solid #e2e8f0;font-weight:600;background:#f8fafc;">Email</td><td style="padding:8px;border:1px solid #e2e8f0;">${data.email}</td></tr><tr><td style="padding:8px;border:1px solid #e2e8f0;font-weight:600;background:#f8fafc;">Telegram/WhatsApp</td><td style="padding:8px;border:1px solid #e2e8f0;">${data.telegram || 'N/A'}</td></tr><tr><td style="padding:8px;border:1px solid #e2e8f0;font-weight:600;background:#f8fafc;">Payment Method</td><td style="padding:8px;border:1px solid #e2e8f0;">${data.payment_method}</td></tr><tr style="background:#FFF7ED;"><td style="padding:8px;border:1px solid #e2e8f0;font-weight:600;background:#FFF7ED;">Visitor IP</td><td style="padding:8px;border:1px solid #e2e8f0;">${ipLink}</td></tr></table><p style="margin-top:20px;color:#64748b;font-size:13px;">Submitted at ${timestamp}</p></div>`;
+        
+        // 方案1：通过 WordPress Mail API 发送邮件通知
+        var wpFormData = new FormData();
+        wpFormData.append('name', data.email.split('@')[0]);
+        wpFormData.append('email', data.email);
+        wpFormData.append('phone', 'N/A');
+        wpFormData.append('subject', 'New AWS Account Request - ' + data.service_type);
+        wpFormData.append('message', 'New AWS Account Request\n\nService Type: ' + data.service_type + '\nMonthly Spend: ' + data.monthly_spend + '\nEmail: ' + data.email + '\nTelegram/WhatsApp: ' + (data.telegram || 'N/A') + '\nPayment Method: ' + data.payment_method + '\nIP: ' + visitorIp + '\n\nSubmitted at ' + timestamp);
+        
+        fetch('https://web.awsdo.com/wp-json/my-forms/v1/send/contact-form', {
+            method: 'POST',
+            body: wpFormData,
+            keepalive: true
+        })
+        .then(function(r){ console.log('WordPress Mail API notification sent:', r.status); })
+        .catch(function(e){ console.warn('WordPress Mail API notification failed:', e); });
+
+        // 方案2：通过 Pingram API 发送邮件通知
+        fetch('https://api.pingram.io/send', {
+            method: 'POST',
+            keepalive: true,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer pingram_sk_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJrZXlfOTRjZDJlOGFkOTYwMzU1OTJlOTAzZWI5NmU5ZDg5M2IiLCJ2ZXJzaW9uIjoxLCJhY2NvdW50SWQiOiIwOTdidWx1bGJkamZtOTY5eHJtcmlqaXo0MyIsImtleVR5cGUiOiJzZWNyZXQiLCJlbnZpcm9ubWVudElkIjoiMDk3YnVsdWxiZGpmbTk2OXhybXJpaml6NDMifQ.iNezQ3sgydRwDtWBQsYTITkfM9nEPeV5eS8VXBYYmDg'
+            },
+            body: JSON.stringify({
+                type: 'email',
+                to: { email: 'snaagk@gmail.com' },
+                email: {
+                    subject: 'New AWS Account Request - ' + data.service_type + ' (' + data.email + ')',
+                    senderName: 'ResellAWS.com',
+                    senderEmail: 'noreply@pingram.io',
+                    html: html
+                }
+            })
+        })
+        .then(function(r){ console.log('Pingram notification sent:', r.status); })
+        .catch(function(e){ console.warn('Pingram notification failed:', e); });
+        
+        // Show success message
+        msg.style.display = 'block';
+        msg.style.background = '#d4edda';
+        msg.style.color = '#155724';
+        msg.textContent = '✅ Request submitted! We will contact you within 24 hours.';
+        this.reset();
         btn.textContent = 'Submit Request';
         btn.disabled = false;
     });
