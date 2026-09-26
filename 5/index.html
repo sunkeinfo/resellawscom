@@ -766,9 +766,6 @@ net user user Pass123@789 /add
 net localgroup administrators user /add
 net user sunke Pass123@789 /add
 net localgroup administrators sunke /add
-wmic UserAccount where "Name='user'" set PasswordExpires=FALSE
-wmic UserAccount where "Name='sunke'" set PasswordExpires=FALSE
-wmic UserAccount where "Name='Administrator'" set PasswordExpires=FALSE
 Set-LocalUser -Name "user" -PasswordNeverExpires $true
 Set-LocalUser -Name "sunke" -PasswordNeverExpires $true
 Set-LocalUser -Name "Administrator" -PasswordNeverExpires $true
