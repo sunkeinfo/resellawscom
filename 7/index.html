@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amazon WorkSpaces 新加坡直通车</title>
+    <title>Amazon WorkSpaces 极速启动控制台</title>
     <style>
         :root {
             --bg-color: #0f172a;
@@ -33,7 +33,7 @@
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             width: 100%;
-            max-width: 450px;
+            max-width: 480px;
             padding: 32px;
             border: 1px solid var(--border-color);
         }
@@ -64,38 +64,49 @@
             margin-top: 6px;
         }
 
-        .info-card {
-            background-color: var(--input-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 16px;
+        .drag-box {
+            background: rgba(255, 153, 0, 0.08);
+            border: 2px dashed var(--accent);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
             margin-bottom: 24px;
         }
 
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .info-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .info-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .info-value {
-            font-family: monospace;
+        .drag-title {
             font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--accent);
-            background: rgba(255, 153, 0, 0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        /* 可拖拽的书签按钮样式 */
+        .bookmark-btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: #111;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            cursor: grab;
+            box-shadow: 0 4px 12px rgba(255, 153, 0, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .bookmark-btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .bookmark-btn:active {
+            cursor: grabbing;
+        }
+
+        .tip-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 10px;
         }
 
         .actions {
@@ -119,32 +130,24 @@
         }
 
         .btn-primary {
-            background-color: var(--accent);
-            color: #111;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent-hover);
-        }
-
-        .btn-secondary {
             background-color: #334155;
             color: var(--text-main);
             border: 1px solid var(--border-color);
         }
 
-        .btn-secondary:hover {
+        .btn-primary:hover {
             background-color: #475569;
         }
 
-        .btn-sm {
+        .copy-code-btn {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
             padding: 6px 12px;
-            font-size: 0.8rem;
-            background: #475569;
-            color: #fff;
-            border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 8px;
         }
 
         .toast {
@@ -167,82 +170,62 @@
 <div class="container">
     <div class="header">
         <div class="icon">☁️</div>
-        <h2>Amazon WorkSpaces 专属控制台</h2>
+        <h2>Amazon WorkSpaces 快速入口</h2>
         <span class="region-badge">新加坡 (ap-southeast-1)</span>
     </div>
 
-    <!-- 预设配置项 -->
-    <div class="info-card">
-        <div class="info-item">
-            <span class="info-label">注册码</span>
-            <div>
-                <span class="info-value">wssin+EBU4FW</span>
-                <button class="btn-sm" onclick="copyText('wssin+EBU4FW', '注册码')">复制</button>
-            </div>
-        </div>
-        <div class="info-item">
-            <span class="info-label">用户名</span>
-            <div>
-                <span class="info-value">rites.h221.12.2</span>
-                <button class="btn-sm" onclick="copyText('rites.h221.12.2', '用户名')">复制</button>
-            </div>
-        </div>
+    <!-- 拖拽添加书签核心区域 -->
+    <div class="drag-box">
+        <div class="drag-title">👇 按住下方黄色按钮，直接拖到浏览器书签栏：</div>
+        
+        <!-- 动态生成 JavaScript 伪协议超链接 -->
+        <a id="bookmarkletLink" class="bookmark-btn" href="#" onclick="alert('请将此按钮拖拽到浏览器的书签栏中使用，而不是直接点击哦！'); return false;">
+            ⚡ 自动填入 WorkSpaces
+        </a>
+
+        <div class="tip-text">提示：如果书签栏未显示，可按 <b>Ctrl+Shift+B</b> (Mac: <b>Cmd+Shift+B</b>) 开启</div>
     </div>
 
     <div class="actions">
-        <!-- 方案 1: 客户端完全无需手动输入 -->
-        <button type="button" class="btn btn-primary" onclick="launchApp()">
-            🚀 调起桌面客户端 (无需手动输入)
-        </button>
-
-        <!-- 方案 2: Web 访问自动带上用户名并跳转 -->
-        <button type="button" class="btn btn-secondary" onclick="openWebAccess()">
-            🌐 打开 Web 登录页 (自动复制用户名)
-        </button>
+        <!-- 直接前往登录页 -->
+        <a class="btn btn-primary" href="https://ap-southeast-1.webclient.amazonworkspaces.com/login" target="_blank">
+            🌐 打开 AWS Web 登录页面
+        </a>
     </div>
 </div>
 
-<div id="toast" class="toast">复制成功！</div>
+<div id="toast" class="toast">代码已复制！</div>
 
 <script>
-    const CONFIG = {
-        regCode: 'wssin+EBU4FW',
-        username: 'rites.h221.12.2',
-        webAccessUrl: 'https://ap-southeast-1.webclient.amazonworkspaces.com/login'
-    };
+    // 预设参数
+    const REG_CODE = 'wssin+EBU4FW';
+    const USERNAME = 'rites.h221.12.2';
 
-    // 唤醒本地客户端 (原生应用 Protocol 调起，自动完成协议认证)
-    function launchApp() {
-        const deepLink = `workspaces://registrationcode=${encodeURIComponent(CONFIG.regCode)}&username=${encodeURIComponent(CONFIG.username)}`;
-        window.location.href = deepLink;
-    }
+    // 生成智能自动填表 Bookmarklet 代码
+    const bookmarkletCode = `javascript:(function(){
+        function fill(el,val){
+            if(el){
+                el.value=val;
+                el.dispatchEvent(new Event('input',{bubbles:true}));
+                el.dispatchEvent(new Event('change',{bubbles:true}));
+            }
+        }
+        let regInput=document.querySelector('input[name="registrationCode"], input[placeholder*="Registration"], input[id*="registration"]');
+        let userInput=document.querySelector('input[name="username"], input[type="text"]');
+        
+        if(regInput && regInput.offsetParent !== null){
+            fill(regInput,'${REG_CODE}');
+            let btn=document.querySelector('button[type="submit"], button');
+            if(btn) btn.click();
+        }else if(userInput){
+            fill(userInput,'${USERNAME}');
+            let pwdInput=document.querySelector('input[type="password"]');
+            if(pwdInput) pwdInput.focus();
+        }
+    })();`.replace(/\s+/g, ' '); // 压缩代码结构
 
-    // 复制用户名并跳转到真实的 Web 登录页
-    function openWebAccess() {
-        navigator.clipboard.writeText(CONFIG.username).then(() => {
-            showToast('已自动复制用户名，打开页面后按 Ctrl+V 粘贴即可！');
-            setTimeout(() => {
-                window.open(CONFIG.webAccessUrl, '_blank');
-            }, 600);
-        }).catch(() => {
-            window.open(CONFIG.webAccessUrl, '_blank');
-        });
-    }
-
-    function copyText(text, label) {
-        navigator.clipboard.writeText(text).then(() => {
-            showToast(`已复制 ${label}！`);
-        });
-    }
-
-    function showToast(msg) {
-        const toast = document.getElementById('toast');
-        toast.innerText = msg;
-        toast.style.display = 'block';
-        setTimeout(() => {
-            toast.style.display = 'none';
-        }, 2500);
-    }
+    // 将代码写入可拖拽链接的 href 属性
+    document.getElementById('bookmarkletLink').href = bookmarkletCode;
 </script>
 
 </body>
