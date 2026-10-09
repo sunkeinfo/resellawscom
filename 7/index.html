@@ -1,57 +1,249 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-<style>
-    body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; }
-    .container { width: 100%; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; }
-    .header { background-color: #2c3e50; color: #ffffff; padding: 20px; text-align: center; }
-    .content { padding: 25px; }
-    .spec-table { width: 100%; border-collapse: collapse; margin: 20px 0; background-color: #f9f9f9; }
-    .spec-table td { padding: 12px; border: 1px solid #ddd; }
-    .spec-table td:first-child { font-weight: bold; background-color: #f2f2f2; width: 40%; }
-    .payment-section { background-color: #fff9e6; border: 1px dashed #f39c12; padding: 20px; text-align: center; margin-top: 20px; }
-    .button { background-color: #0070ba; color: #ffffff !important; padding: 14px 30px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block; margin: 15px 0; }
-    .footer { font-size: 12px; color: #888; text-align: center; padding: 20px; background-color: #f4f4f4; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon WorkSpaces 新加坡直通车</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #ff9900;
+            --accent-hover: #e68a00;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --input-bg: #334155;
+            --border-color: #475569;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 450px;
+            padding: 32px;
+            border: 1px solid var(--border-color);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .header .icon {
+            font-size: 40px;
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 1.3rem;
+            color: var(--accent);
+        }
+
+        .region-badge {
+            display: inline-block;
+            background: #0284c7;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-top: 6px;
+        }
+
+        .info-card {
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .info-value {
+            font-family: monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+            background: rgba(255, 153, 0, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: #111;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background-color: #334155;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #475569;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            background: #475569;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(16, 185, 129, 0.9);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h2 style="margin:0;">Order Confirmation: Hong Kong Cloud Server</h2>
-        </div>
-        
-        <div class="content">
-            <p>Dear Customer (SharonRodriguez009@protonmail.com),</p>
-            <p>We have received your order for a Cloud Server in Hong Kong. Please find the configuration details below:</p>
 
-            <table class="spec-table">
-                <tr><td>Location:</td><td>Hong Kong (HK)</td></tr>
-                <tr><td>Operating System:</td><td>Debian 12.12</td></tr>
-                <tr><td>CPU / RAM:</td><td>2 vCPU / 1GB RAM</td></tr>
-                <tr><td>Storage:</td><td>40GB SSD</td></tr>
-                <tr><td>Monthly Traffic:</td><td>2TB</td></tr>
-                <tr><td>Monthly Fee:</td><td>HK$30 (Approx. $4.00 USD)</td></tr>
-            </table>
+<div class="container">
+    <div class="header">
+        <div class="icon">☁️</div>
+        <h2>Amazon WorkSpaces 专属控制台</h2>
+        <span class="region-badge">新加坡 (ap-southeast-1)</span>
+    </div>
 
-            <div class="payment-section">
-                <h3 style="margin-top:0;">Payment Method: PayPal</h3>
-                <p>Total Amount Due: <span style="font-size: 20px; color: #d35400;"><strong>$4.00 USD</strong></span></p>
-                
-                <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.paypal.com%2Fcgi-bin%2Fwebscr%3Fcmd%3D_xclick%26business%3Dpaypal2017august%40sunke.info%26amount%3D4.00%26currency_code%3DUSD%26item_name%3DCloud_Server_HongKong_Debian" class="button">Click Here to Pay $4.00 USD via PayPal</a>
-                
-                <p style="font-size: 13px; color: #666; margin-top: 10px;">
-                    PayPal Account: <strong>paypal2017august@sunke.info</strong>
-                </p>
+    <!-- 预设配置项 -->
+    <div class="info-card">
+        <div class="info-item">
+            <span class="info-label">注册码</span>
+            <div>
+                <span class="info-value">wssin+EBU4FW</span>
+                <button class="btn-sm" onclick="copyText('wssin+EBU4FW', '注册码')">复制</button>
             </div>
-
-            <p style="margin-top:20px;"><strong>What happens next?</strong><br>
-            Once your payment is confirmed, we will begin provisioning your HK server. Your IP address and root password will be sent to this email within 24 hours.</p>
         </div>
-
-        <div class="footer">
-            Need help? Reply to this email or contact us through our online store.<br>
-            &copy; [Your Company Name] Cloud Services
+        <div class="info-item">
+            <span class="info-label">用户名</span>
+            <div>
+                <span class="info-value">rites.h221.12.2</span>
+                <button class="btn-sm" onclick="copyText('rites.h221.12.2', '用户名')">复制</button>
+            </div>
         </div>
     </div>
+
+    <div class="actions">
+        <!-- 方案 1: 客户端完全无需手动输入 -->
+        <button type="button" class="btn btn-primary" onclick="launchApp()">
+            🚀 调起桌面客户端 (无需手动输入)
+        </button>
+
+        <!-- 方案 2: Web 访问自动带上用户名并跳转 -->
+        <button type="button" class="btn btn-secondary" onclick="openWebAccess()">
+            🌐 打开 Web 登录页 (自动复制用户名)
+        </button>
+    </div>
+</div>
+
+<div id="toast" class="toast">复制成功！</div>
+
+<script>
+    const CONFIG = {
+        regCode: 'wssin+EBU4FW',
+        username: 'rites.h221.12.2',
+        webAccessUrl: 'https://ap-southeast-1.webclient.amazonworkspaces.com/login'
+    };
+
+    // 唤醒本地客户端 (原生应用 Protocol 调起，自动完成协议认证)
+    function launchApp() {
+        const deepLink = `workspaces://registrationcode=${encodeURIComponent(CONFIG.regCode)}&username=${encodeURIComponent(CONFIG.username)}`;
+        window.location.href = deepLink;
+    }
+
+    // 复制用户名并跳转到真实的 Web 登录页
+    function openWebAccess() {
+        navigator.clipboard.writeText(CONFIG.username).then(() => {
+            showToast('已自动复制用户名，打开页面后按 Ctrl+V 粘贴即可！');
+            setTimeout(() => {
+                window.open(CONFIG.webAccessUrl, '_blank');
+            }, 600);
+        }).catch(() => {
+            window.open(CONFIG.webAccessUrl, '_blank');
+        });
+    }
+
+    function copyText(text, label) {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast(`已复制 ${label}！`);
+        });
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.innerText = msg;
+        toast.style.display = 'block';
+        setTimeout(() => {
+            toast.style.display = 'none';
+        }, 2500);
+    }
+</script>
+
 </body>
 </html>
